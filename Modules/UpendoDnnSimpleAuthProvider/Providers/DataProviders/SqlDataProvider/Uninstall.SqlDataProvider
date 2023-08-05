@@ -1,0 +1,17 @@
+/*
+
+UNINSTALL SQL PROVIDER SCRIPT
+
+Upendo-Dnn-Simple-Auth-Provider Extension for DNN
+
+*/
+
+IF NOT OBJECT_ID('{databaseOwner}[{objectQualifier}Upendo_Simple_Auth_VerificationCodes]') IS NULL
+    DROP TABLE {databaseOwner}[{objectQualifier}Upendo_Simple_Auth_VerificationCodes];
+GO
+
+/*
+
+END OF FILE
+
+*/

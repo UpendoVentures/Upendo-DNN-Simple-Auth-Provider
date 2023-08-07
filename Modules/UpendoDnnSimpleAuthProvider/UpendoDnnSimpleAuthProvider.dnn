@@ -2,7 +2,7 @@
 <dotnetnuke type="Package" version="6.0">
   <packages>
     <package name="UpendoVentures.Auth.UpendoDnnSimpleAuthProvider" type="Auth_System" version="01.00.00">
-      <friendlyName>UpendoDnnSimpleAuthProvider</friendlyName>
+      <friendlyName>Upendo Simple DNN Auth Provider</friendlyName>
       <description>
         <![CDATA[<p>Upendo</p>]]>
       </description>
@@ -20,7 +20,7 @@
         <dependency type="CoreVersion">09.10.00</dependency>
       </dependencies>
       <components>
-      
+
         <component type="AuthenticationSystem">
           <authenticationService>
             <type>Upendo Simple Auth</type>
@@ -29,23 +29,23 @@
             <logoffControlSrc>DesktopModules/UpendoDnnSimpleAuthProvider/Logoff.ascx</logoffControlSrc>
           </authenticationService>
         </component>
-	  
-		<component type="Script">
-			  <scripts>
-				  <basePath>DesktopModules\UpendoDnnSimpleAuthProvider</basePath>
-				  <script type="Install">
-					  <path>Providers\DataProviders\SqlDataProvider</path>
-					  <name>01.00.00.SqlDataProvider</name>
-					  <version>01.00.00</version>
-				  </script>
-				  <script type="UnInstall">
-					  <path>Providers\DataProviders\SqlDataProvider</path>
-					  <name>Uninstall.SqlDataProvider</name>
-					  <version>01.00.00</version>
-				  </script>
-			  </scripts>
-		</component>
-		  
+
+        <component type="Script">
+          <scripts>
+            <basePath>DesktopModules\UpendoDnnSimpleAuthProvider</basePath>
+            <script type="Install">
+              <path>Providers\DataProviders\SqlDataProvider</path>
+              <name>01.00.00.SqlDataProvider</name>
+              <version>01.00.00</version>
+            </script>
+            <script type="UnInstall">
+              <path>Providers\DataProviders\SqlDataProvider</path>
+              <name>Uninstall.SqlDataProvider</name>
+              <version>01.00.00</version>
+            </script>
+          </scripts>
+        </component>
+
         <component type="Assembly">
           <assemblies>
             <assembly>

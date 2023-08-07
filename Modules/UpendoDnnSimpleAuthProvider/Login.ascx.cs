@@ -348,9 +348,11 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 
                 if (!emailUsedAsUsername || userByEmail != null)
                 {
+                    this.txtPassword.Text = this.txtPassword.Text.Trim();
+
                     //Note: In the password field what comes is the verification code.
                     // Check if the verification code textbox (txtPassword.Text) is not empty.
-                    if (this.txtPassword.Text != "")
+                    if (!string.IsNullOrEmpty(this.txtPassword.Text))
                     {
                         // If the entered verification code is valid (exists in the database), proceed with validation.
                         if (UtilityMethods.ValidateCodeInDB(userName, this.txtPassword.Text))

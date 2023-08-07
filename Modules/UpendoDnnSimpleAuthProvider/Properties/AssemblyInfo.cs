@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("UpendoVentures")]
 [assembly: AssemblyProduct("UpendoDnnSimpleAuthProvider Auth Extension for DNN")]
-[assembly: AssemblyCopyright("Copyright 2023 UpendoVentures")]
+[assembly: AssemblyCopyright("Copyright (C) UpendoVentures")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

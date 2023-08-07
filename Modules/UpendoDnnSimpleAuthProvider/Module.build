@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ModulePath>UpendoDnnSimpleAuthProvider</ModulePath>
     <DNNFileName>UpendoDnnSimpleAuthProvider</DNNFileName>
-    <PackageName>UpendoVentures.UpendoDnnSimpleAuthProvider</PackageName>
+    <PackageName>Upendo.SimpleAuthProvider</PackageName>
     <Extension>zip</Extension>
     <BuildScriptsPath>$(MSBuildProjectDirectory)\..\..\Build</BuildScriptsPath>
     <WebsitePath>$(MSBuildProjectDirectory)\..\..\Website</WebsitePath>

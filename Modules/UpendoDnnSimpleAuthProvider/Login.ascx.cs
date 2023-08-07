@@ -1,3 +1,22 @@
+/*
+Copyright © Upendo Ventures, LLC
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+associated documentation files (the "Software"), to deal in the Software without restriction, 
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial 
+portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES 
+OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 {
     using System;
@@ -31,7 +50,6 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
     using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Data;
     using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Data.Cryptography;
     using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Models;
-    using static Telerik.Web.UI.OrgChartStyles;
     using Globals = DotNetNuke.Common.Globals;
     using Host = DotNetNuke.Entities.Host.Host;
 
@@ -330,9 +348,11 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 
                 if (!emailUsedAsUsername || userByEmail != null)
                 {
+                    this.txtPassword.Text = this.txtPassword.Text.Trim();
+
                     //Note: In the password field what comes is the verification code.
                     // Check if the verification code textbox (txtPassword.Text) is not empty.
-                    if (this.txtPassword.Text != "")
+                    if (!string.IsNullOrEmpty(this.txtPassword.Text))
                     {
                         // If the entered verification code is valid (exists in the database), proceed with validation.
                         if (UtilityMethods.ValidateCodeInDB(userName, this.txtPassword.Text))

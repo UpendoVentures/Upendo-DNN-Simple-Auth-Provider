@@ -1,0 +1,37 @@
+/*
+
+INSTALL SQL PROVIDER SCRIPT
+
+Upendo-Dnn-Simple-Auth-Provider Extension for DNN
+
+Release Notes:
+ - This script does this
+ - And this
+ - and this
+
+*/
+
+
+IF NOT OBJECT_ID('{databaseOwner}[{objectQualifier}Upendo_Simple_Auth_VerificationCodes]') IS NULL
+    DROP TABLE {databaseOwner}[{objectQualifier}Upendo_Simple_Auth_VerificationCodes];
+GO
+
+CREATE TABLE {databaseOwner}[{objectQualifier}Upendo_Simple_Auth_VerificationCodes] (
+    [Id] INT IDENTITY(1,1) 
+        CONSTRAINT [PK_{objectQualifier}Upendo_Simple_Auth_VerificationCodes] PRIMARY KEY CLUSTERED, 
+    [Email] NVARCHAR(100) NOT NULL, 
+    [Code] NVARCHAR(1000) NOT NULL, 
+    [CreatedOnDate] DATETIME NOT NULL, 
+    [ExpirationDate] DATETIME NOT NULL, 
+    [Try] INT NOT NULL, 
+);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Upendo_Simple_Auth_VerificationCodes_Id] ON {databaseOwner}[{objectQualifier}Upendo_Simple_Auth_VerificationCodes] ([Id]);
+GO
+
+/*
+
+END OF FILE
+
+*/

@@ -37,6 +37,8 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
         {
             var randomCode = code;
             string logo = UtilityMethods.GetSiteIconUrl().ToString();
+            bool isSecureConnection = HttpContext.Current.Request.IsSecureConnection;
+            string logoUrl = isSecureConnection ? "https://"+ logo : "http://"+ logo;
             string emailSubject = "Upendo Authenticator Provider confirmation code: " + randomCode;
             var hostEmail = HostController.Instance.GetString("HostEmail");
             var toEmailAddress = userEmail;
@@ -90,7 +92,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
     <tr>
       <td class=""header"" style=""padding: 24pt 0.75pt"">
         <div align=""center"">
-         <img src=""http://"; emailBody += logo; emailBody += $@""" alt=""logo"">
+         <img src="""; emailBody += logoUrl; emailBody += $@""" alt=""logo"">
         </div>
       </td>
     </tr>

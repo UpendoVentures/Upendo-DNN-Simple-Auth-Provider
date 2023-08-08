@@ -32,6 +32,7 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Skins.Controls;
 using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Data;
 using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Data.Cryptography;
+using DotNetNuke.Entities.Portals;
 
 namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
 {
@@ -55,7 +56,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
             // The VerificationCodeRepository is assumed to be a repository or data access layer handling verification codes.
             // It is checked if there are any items in the repository whose email matches the provided username.
             // This implies that a verification code has been generated for the user if there is a match.
-            if (VerificationCodeRepository.Instance.GetItems().Any(s => s.Email.Equals(userName)))
+            if (VerificationCodeRepository.Instance.GetItems().Any(s => s.Username.Equals(userName)))
             {
                 // If a verification code exists for the user, return true.
                 return true;
@@ -78,13 +79,13 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
 
             // Retrieve the latest verification code data from the database for the user's email.
             // The VerificationCodeRepository is assumed to be a repository or data access layer handling verification codes.
-            var dataInDB = VerificationCodeRepository.Instance.GetItems().LastOrDefault(s => s.Email.Equals(objUser.Email));
+            var dataInDB = VerificationCodeRepository.Instance.GetItems().LastOrDefault(s => s.Username.Trim().ToLower().Equals(objUser.Username.Trim().ToLower()));
 
             // Get the encryption key for decoding the verification code.
             var key = KeyManager.GetKey(0);
 
             // Decrypt the verification code using AES encryption.
-            var desncrypted = AesEncryption.Decode(dataInDB.Code, key);
+            var desncrypted = AesEncryption.Decode(dataInDB.ValidationPacket, key);
 
             // Check if the decrypted verification code contains the provided code.
             // If it does, it means the user is valid.
@@ -110,13 +111,21 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
             // Retrieve the user information for the provided username from the user controller.
             UserInfo objUser = UserController.GetUserByName(userName);
 
-            // Retrieve the latest verification code data from the database for the user's email.
+            // Retrieve the latest verification code data from the database for the user's.
             // The VerificationCodeRepository is assumed to be a repository or data access layer handling verification codes.
-            var dataInDB = VerificationCodeRepository.Instance.GetItems().LastOrDefault(s => s.Email.Equals(objUser.Email));
+            var dataInDB = VerificationCodeRepository.Instance.GetItems().LastOrDefault(s => s.Username.Trim().ToLower().Equals(objUser.Username.Trim().ToLower()));
 
             // Check if the expiration date of the verification code is less than or equal to the current date and time.
             // If the verification code has expired, it needs to be deleted from the repository.
-            if (dataInDB.ExpirationDate <= DateTime.Now)
+            if (dataInDB.ExpirationDate <= DateTime.Now && dataInDB.Try <= 2)
+            {
+                // Delete the expired verification code from the repository.
+                VerificationCodeRepository.Instance.DeleteItem(dataInDB.Id);
+
+                // Return true to indicate that the verification code has expired.
+                return true;
+            }
+            if (dataInDB.ExpirationDate <= DateTime.Now && dataInDB.Try == 3 && dataInDB.ExpirationDate.AddHours(1) <= DateTime.Now)
             {
                 // Delete the expired verification code from the repository.
                 VerificationCodeRepository.Instance.DeleteItem(dataInDB.Id);
@@ -174,6 +183,24 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
             // The ":D2" format specifier ensures that both minutes and seconds are displayed as two digits,
             // with leading zeros if necessary.
             return $"{hours}:{minutes:D2}:{seconds:D2}";
+        }
+
+        // This method is used to retrieve the complete URL of a site's logo
+        public static string GetSiteIconUrl()
+        {
+            // Get the configuration of the current portal using the PortalController's instance
+            PortalSettings portalSettings = PortalController.Instance.GetCurrentPortalSettings();
+
+            // Get the filename of the site logo from the portal settings
+            string logoFile = portalSettings.LogoFile;
+
+            // Build the complete URL of the logo by combining portal alias, home directory, and logo filename
+            string portalAlias = portalSettings.PortalAlias.HTTPAlias;
+            string portalHomeDirectory = portalSettings.HomeDirectory;
+            string completeLogoUrl = $"{portalAlias}{portalHomeDirectory}{logoFile}";
+
+            // Return the complete logo URL
+            return completeLogoUrl;
         }
     }
 }

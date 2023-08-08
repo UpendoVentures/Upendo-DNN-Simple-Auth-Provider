@@ -132,7 +132,7 @@
   <data name="SendEmailVerificationCode.Text" xml:space="preserve">
     <value>If your username matches a known user, you'll receive your verification code in the email address asssociated to this user account</value>
   </data>
-    <data name="RequiredVerificationCode.Text" xml:space="preserve">
+  <data name="RequiredVerificationCode.Text" xml:space="preserve">
     <value>The verification code is required.</value>
   </data>
   <data name="UserAlreadyVerified.Text" xml:space="preserve">
@@ -155,5 +155,8 @@
   </data>
   <data name="LoginHeader.Text" xml:space="preserve">
     <value>Please enter your username to send your verification code.</value>
+  </data>
+  <data name="AccessDenied.Text" xml:space="preserve">
+    <value>Access denied. Incorrect username or verification code.</value>
   </data>
 </root>

@@ -27,6 +27,7 @@ using System.Linq;
 using System.Web;
 using System.Text;
 using DotNetNuke.Entities.Users;
+using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components;
 
 namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
 {
@@ -35,6 +36,9 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
         public static void Send(string userEmail, string code)
         {
             var randomCode = code;
+            string logo = UtilityMethods.GetSiteIconUrl().ToString();
+            bool isSecureConnection = HttpContext.Current.Request.IsSecureConnection;
+            string logoUrl = isSecureConnection ? "https://"+ logo : "http://"+ logo;
             string emailSubject = "Upendo Authenticator Provider confirmation code: " + randomCode;
             var hostEmail = HostController.Instance.GetString("HostEmail");
             var toEmailAddress = userEmail;
@@ -88,7 +92,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
     <tr>
       <td class=""header"" style=""padding: 24pt 0.75pt"">
         <div align=""center"">
-          <img src=""https://upendo-website.s3-us-west-1.amazonaws.com/Portals/0/Images/Upendo-logo-trans-230x65.png"" alt=""upendo logo"">
+         <img src="""; emailBody += logoUrl; emailBody += $@""" alt=""logo"">
         </div>
       </td>
     </tr>

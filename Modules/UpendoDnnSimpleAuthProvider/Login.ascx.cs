@@ -349,6 +349,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                 if (!emailUsedAsUsername || userByEmail != null)
                 {
                     this.txtPassword.Text = this.txtPassword.Text.Trim();
+                    objUser = UserController.GetUserByName(userName);
 
                     //Note: In the password field what comes is the verification code.
                     // Check if the verification code textbox (txtPassword.Text) is not empty.
@@ -362,7 +363,6 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                             {
                                 // The verification code has expired for the user.
                                 // Log the login failure attempt and display an error message to the user.
-                                objUser = UserController.GetUserByName(userName);
                                 loginStatus = UserLoginStatus.LOGIN_FAILURE;
                                 EventLogController.Instance.AddLog("User Login - Expired Verification Code", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.LOGIN_FAILURE);
                                 DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("ExpiredVerificationCode", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
@@ -373,10 +373,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                                 // Now, check if the verification code matches the user's actual account.
                                 if (UtilityMethods.ValidateUser(userName, this.txtPassword.Text))
                                 {
-                                    // The verification code matches the user's account.
-                                    // Retrieve the user object (objUser) and set the login status accordingly.
-                                    objUser = UserController.GetUserByName(userName);
-                                   
+                                    
                                     // Successful login, add log entry
                                     EventLogController.Instance.AddLog("User Login - Successful", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.LOGIN_SUCCESS);
                                     if (objUser.IsSuperUser)
@@ -390,6 +387,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                                 }
                                 else
                                 {
+
                                     // The verification code does not match the user's account.
                                     // Set the login status to indicate a login failure and display an error message.
                                     loginStatus = UserLoginStatus.LOGIN_FAILURE;
@@ -403,8 +401,8 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                             // The entered verification code is invalid (does not exist in the database).
                             // Set the login status to indicate a login failure and display an error message.
                             loginStatus = UserLoginStatus.LOGIN_FAILURE;
-                            EventLogController.Instance.AddLog("User Login - Invalid Verification Code", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.LOGIN_FAILURE);
-                            DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("InvalidVerificationCode", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
+                            DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("AccessDenied", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
+
                         }
                     }
                     else
@@ -412,8 +410,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                         // The verification code textbox is empty.
                         // Set the login status to indicate a login failure and display an error message.
                         loginStatus = UserLoginStatus.LOGIN_FAILURE;
-                        EventLogController.Instance.AddLog("User Login - Empty Verification Code", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.LOGIN_FAILURE);
-                        DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("RequiredVerificationCode", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
+                        DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("AccessDenied", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
                     }
                 }
 
@@ -482,6 +479,9 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
             // Check if the user object (objUser) is not null
             if (objUser != null)
             {
+                // Get the user's name from the user object
+                string username = objUser.Username;
+
                 // Get the user's email address from the user object
                 string emailAddress = objUser.Email;
 
@@ -500,12 +500,12 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                 DateTime expirationdate = createOneDate.AddMinutes(15);
 
                 // Check if the user's email already exists in the database (dataInDB)
-                var dataInDB = VerificationCodeRepository.Instance.GetItems().Any(s => s.Email.Equals(emailAddress));
+                var dataInDB = VerificationCodeRepository.Instance.GetItems().Any(s => s.Username.Equals(username));
 
                 if (dataInDB)
                 {
                     // The user's email exists in the database, retrieve the existing verification code entry
-                    var existingItem = VerificationCodeRepository.Instance.GetItems().SingleOrDefault(s => s.Email.Equals(emailAddress));
+                    var existingItem = VerificationCodeRepository.Instance.GetItems().SingleOrDefault(s => s.Username.Equals(username));
 
                     // Determine the time limit for requesting a new verification code based on the number of attempts (try)
                     int timeToCompare = existingItem.Try < 3 ? 60 : 3600;
@@ -547,9 +547,9 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                     {
                         // The time limit has been exceeded, update the verification code entry in the database with a new code
                         existingItem.Try = existingItem.Try < 3 ? existingItem.Try += 1 : 1;
-                        existingItem.Code = encrypted;
+                        existingItem.ValidationPacket = encrypted;
                         existingItem.CreatedOnDate = DateTime.Now;
-                        existingItem.Email = emailAddress;
+                        existingItem.Username = username;
                         existingItem.ExpirationDate = expirationdate;
                         VerificationCodeRepository.Instance.UpdateItem(existingItem);
 
@@ -598,9 +598,9 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                     // The user's email does not exist in the database, create a new verification code entry with the generated code
                     var data = new VerificationCode
                     {
-                        Code = encrypted,
+                        ValidationPacket = encrypted,
                         CreatedOnDate = DateTime.Now,
-                        Email = emailAddress,
+                        Username = username,
                         ExpirationDate = expirationdate,
                         Try = 1
                     };
@@ -630,7 +630,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
             else
             {
                 // The user object is null, display a module message
-                DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("SendEmailVerificationCode", this.LocalResourceFile), ModuleMessage.ModuleMessageType.BlueInfo);
+                DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("UserDoesNotExist", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
             }
         }
 

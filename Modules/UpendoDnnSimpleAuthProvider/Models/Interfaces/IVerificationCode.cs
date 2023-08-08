@@ -27,9 +27,10 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Models.Interfaces
     public interface IVerificationCode
     {
         int Id { get; set; }
-        string Email { get; set; }
-        string Code { get; set; }
+        string Username { get; set; }
+        string ValidationPacket { get; set; }
         DateTime CreatedOnDate { get; set; }
         DateTime ExpirationDate { get; set; }
+        int Try { get; set; }
     }
 }

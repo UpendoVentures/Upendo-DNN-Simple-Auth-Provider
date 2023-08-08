@@ -401,6 +401,8 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                             // The entered verification code is invalid (does not exist in the database).
                             // Set the login status to indicate a login failure and display an error message.
                             loginStatus = UserLoginStatus.LOGIN_FAILURE;
+                            //Note: The code below has been commented out in case it needs to be used in the future.
+                            //EventLogController.Instance.AddLog("User Login - Invalid Verification Code", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.LOGIN_FAILURE);
                             DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("AccessDenied", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
 
                         }
@@ -410,6 +412,8 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                         // The verification code textbox is empty.
                         // Set the login status to indicate a login failure and display an error message.
                         loginStatus = UserLoginStatus.LOGIN_FAILURE;
+                        //Note: The code below has been commented out in case it needs to be used in the future.
+                        //EventLogController.Instance.AddLog("User Login - Empty Verification Code", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.LOGIN_FAILURE);
                         DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("AccessDenied", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
                     }
                 }

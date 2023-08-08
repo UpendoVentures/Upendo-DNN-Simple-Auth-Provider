@@ -12,22 +12,22 @@ Release Notes:
 */
 
 
-IF NOT OBJECT_ID('{databaseOwner}[{objectQualifier}Upendo_Simple_Auth_VerificationCodes]') IS NULL
-    DROP TABLE {databaseOwner}[{objectQualifier}Upendo_Simple_Auth_VerificationCodes];
+IF NOT OBJECT_ID('{databaseOwner}[{objectQualifier}Upendo_SimpleAuthVerification]') IS NULL
+    DROP TABLE {databaseOwner}[{objectQualifier}Upendo_SimpleAuthVerification];
 GO
 
-CREATE TABLE {databaseOwner}[{objectQualifier}Upendo_Simple_Auth_VerificationCodes] (
+CREATE TABLE {databaseOwner}[{objectQualifier}Upendo_SimpleAuthVerification] (
     [Id] INT IDENTITY(1,1) 
-        CONSTRAINT [PK_{objectQualifier}Upendo_Simple_Auth_VerificationCodes] PRIMARY KEY CLUSTERED, 
-    [Email] NVARCHAR(100) NOT NULL, 
-    [Code] NVARCHAR(1000) NOT NULL, 
+        CONSTRAINT [PK_{objectQualifier}Upendo_SimpleAuthVerification] PRIMARY KEY CLUSTERED, 
+    [Username] NVARCHAR(100) NOT NULL, 
+    [ValidationPacket] NVARCHAR(1000) NOT NULL, 
     [CreatedOnDate] DATETIME NOT NULL, 
     [ExpirationDate] DATETIME NOT NULL, 
     [Try] INT NOT NULL, 
 );
 GO
 
-CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Upendo_Simple_Auth_VerificationCodes_Id] ON {databaseOwner}[{objectQualifier}Upendo_Simple_Auth_VerificationCodes] ([Id]);
+CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Upendo_SimpleAuthVerification_Id] ON {databaseOwner}[{objectQualifier}Upendo_SimpleAuthVerification] ([Id]);
 GO
 
 /*

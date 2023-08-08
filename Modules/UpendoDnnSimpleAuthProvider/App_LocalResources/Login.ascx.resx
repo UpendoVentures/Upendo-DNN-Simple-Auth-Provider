@@ -156,7 +156,7 @@
   <data name="LoginHeader.Text" xml:space="preserve">
     <value>Please enter your username to send your verification code.</value>
   </data>
-  <data name="AccessDenied" xml:space="preserve">
+  <data name="AccessDenied.Text" xml:space="preserve">
     <value>Access denied. Incorrect username or verification code.</value>
   </data>
 </root>

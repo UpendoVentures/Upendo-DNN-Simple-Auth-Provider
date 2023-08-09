@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Components\AuthConfigBase.cs" />
     <Compile Include="Components\Const.cs" />
+    <Compile Include="Components\DnnGlobal.cs" />
     <Compile Include="Components\Email.cs" />
     <Compile Include="Components\Json.cs" />
     <Compile Include="Components\RandomCodeGenerator.cs" />
@@ -167,7 +168,9 @@
     <Content Include="Logoff.ascx" />
     <Content Include="Settings.ascx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Templates\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

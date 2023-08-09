@@ -33,6 +33,7 @@ using DotNetNuke.UI.Skins.Controls;
 using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Data;
 using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Data.Cryptography;
 using DotNetNuke.Entities.Portals;
+using System.Web;
 
 namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
 {
@@ -198,9 +199,10 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
             string portalAlias = portalSettings.PortalAlias.HTTPAlias;
             string portalHomeDirectory = portalSettings.HomeDirectory;
             string completeLogoUrl = $"{portalAlias}{portalHomeDirectory}{logoFile}";
-
+            bool isSecureConnection = HttpContext.Current.Request.IsSecureConnection;
+            string logoUrl = isSecureConnection ? "https://" + completeLogoUrl : "http://" + completeLogoUrl;
             // Return the complete logo URL
-            return completeLogoUrl;
+            return logoUrl;
         }
     }
 }

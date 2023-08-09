@@ -1,3 +1,33 @@
+# Upendo DNN Simple Authentication Provider 🔒🔑  
+
+This extension helps you to provide a more modern form of authenticating users on your DNN website.  Instead of using the archaic username and password method of logging in, it instead relies on the authentication security provided by the email provider of choice by the end end-user.  
+
+When they attempt to log in, they'll be sent an email, where they'll need to copy the code in their email, then paste it into the login form.  If the code is correct, then they'll be logged in.  
+
+In the interest of keeping things tidy, codes are automatically cleared out as they expire, and after 5 subsequent failed attempts, end-users must wait an hour before they can try again.  
+
+How do you say "Easy Security" without saying "easy security?"  Oh, never mind. 😎  
+
+<hr />  
+
+## `Sponsors == (typeOf superHuman) Awesome;`  
+
+> Yes, it's not real code. It's just supposed to be fun. :P
+
+This solution is created and maintained by [Upendo Ventures](https://upendoventures.com/What/CMS/DNN) for the [DNN CMS Community](https://dnncommunity.org). Please consider [sponsoring us](https://github.com/sponsors/UpendoVentures) for this and [the many other open-source efforts we do](https://upendoventures.com/What/CMS/DNN/Extensions).  It's a lot.  :)  
+
+- [Sponsor Us](https://github.com/sponsors/UpendoVentures) (we're grateful at any level 🙏🏽)  
+
+<hr />  
+
+# Developers Only 🤓  
+
+If you're not a developer, the rest of this README is not going to interest you. 😉  
+
+This solution was built using the [Upendo DNN Generator](https://github.com/UpendoVentures/generator-upendodnn#readme).  
+
+<hr />  
+
 **A Special Note to ALL Developers...**  
 Please do not begin any development until you first read through and understand all of the notes in the README below.  
 

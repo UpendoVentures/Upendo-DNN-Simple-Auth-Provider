@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("UpendoDnnSimpleAuthProvider Auth Extension for DNN")]
-[assembly: AssemblyDescription("Upendo")]
+[assembly: AssemblyDescription("A simple authentication provider that doesn't require using a password.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("UpendoVentures")]
+[assembly: AssemblyCompany("Upendo Ventures, LLC")]
 [assembly: AssemblyProduct("UpendoDnnSimpleAuthProvider Auth Extension for DNN")]
-[assembly: AssemblyCopyright("Copyright (C) UpendoVentures")]
+[assembly: AssemblyCopyright("Copyright (C) Upendo Ventures, LLC")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

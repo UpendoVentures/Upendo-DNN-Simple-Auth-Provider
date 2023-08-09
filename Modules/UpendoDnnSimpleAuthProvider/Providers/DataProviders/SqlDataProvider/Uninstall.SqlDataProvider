@@ -10,6 +10,8 @@ IF NOT OBJECT_ID('{databaseOwner}[{objectQualifier}Upendo_SimpleAuthVerification
     DROP TABLE {databaseOwner}[{objectQualifier}Upendo_SimpleAuthVerification];
 GO
 
+DELETE FROM {databaseOwner}[{objectQualifier}PortalSettings] WHERE SettingName = 'UpendoSimpleDnnAuth.ConfirmEmail';
+GO
 /*
 
 END OF FILE

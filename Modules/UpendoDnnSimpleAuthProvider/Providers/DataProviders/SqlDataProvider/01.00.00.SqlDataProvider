@@ -30,6 +30,19 @@ GO
 CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Upendo_SimpleAuthVerification_Id] ON {databaseOwner}[{objectQualifier}Upendo_SimpleAuthVerification] ([Id]);
 GO
 
+INSERT INTO {databaseOwner}[{objectQualifier}PortalSettings]
+        ( PortalID ,
+          SettingName ,
+          SettingValue ,
+          CreatedByUserID ,
+          CreatedOnDate ,
+          LastModifiedByUserID ,
+          LastModifiedOnDate ,
+          CultureCode
+        )
+		SELECT PortalID, 'UpendoSimpleDnnAuth.ConfirmEmail', '/DesktopModules/UpendoDnnSimpleAuthProvider/Templates/EmailTemplate.html', -1, GETDATE(), -1, GETDATE(), '' FROM {databaseOwner}[{objectQualifier}Portals]
+GO
+
 /*
 
 END OF FILE

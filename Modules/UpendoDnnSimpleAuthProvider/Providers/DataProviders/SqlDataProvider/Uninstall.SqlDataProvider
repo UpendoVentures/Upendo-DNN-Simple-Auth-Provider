@@ -1,0 +1,19 @@
+/*
+
+UNINSTALL SQL PROVIDER SCRIPT
+
+Upendo-Dnn-Simple-Auth-Provider Extension for DNN
+
+*/
+
+IF NOT OBJECT_ID('{databaseOwner}[{objectQualifier}Upendo_SimpleAuthVerification]') IS NULL
+    DROP TABLE {databaseOwner}[{objectQualifier}Upendo_SimpleAuthVerification];
+GO
+
+DELETE FROM {databaseOwner}[{objectQualifier}PortalSettings] WHERE SettingName = 'UpendoSimpleDnnAuth.ConfirmEmail';
+GO
+/*
+
+END OF FILE
+
+*/

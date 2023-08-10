@@ -1,0 +1,50 @@
+/*
+
+INSTALL SQL PROVIDER SCRIPT
+
+Upendo-Dnn-Simple-Auth-Provider Extension for DNN
+
+Release Notes:
+ - This script does this
+ - And this
+ - and this
+
+*/
+
+
+IF NOT OBJECT_ID('{databaseOwner}[{objectQualifier}Upendo_SimpleAuthVerification]') IS NULL
+    DROP TABLE {databaseOwner}[{objectQualifier}Upendo_SimpleAuthVerification];
+GO
+
+CREATE TABLE {databaseOwner}[{objectQualifier}Upendo_SimpleAuthVerification] (
+    [Id] INT IDENTITY(1,1) 
+        CONSTRAINT [PK_{objectQualifier}Upendo_SimpleAuthVerification] PRIMARY KEY CLUSTERED, 
+    [Username] NVARCHAR(100) NOT NULL, 
+    [ValidationPacket] NVARCHAR(1000) NOT NULL, 
+    [CreatedOnDate] DATETIME NOT NULL, 
+    [ExpirationDate] DATETIME NOT NULL, 
+    [Try] INT NOT NULL, 
+);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_{objectQualifier}Upendo_SimpleAuthVerification_Id] ON {databaseOwner}[{objectQualifier}Upendo_SimpleAuthVerification] ([Id]);
+GO
+
+INSERT INTO {databaseOwner}[{objectQualifier}PortalSettings]
+        ( PortalID ,
+          SettingName ,
+          SettingValue ,
+          CreatedByUserID ,
+          CreatedOnDate ,
+          LastModifiedByUserID ,
+          LastModifiedOnDate ,
+          CultureCode
+        )
+		SELECT PortalID, 'UpendoSimpleDnnAuth.ConfirmEmail', '/DesktopModules/UpendoDnnSimpleAuthProvider/Templates/EmailTemplate.html', -1, GETDATE(), -1, GETDATE(), '' FROM {databaseOwner}[{objectQualifier}Portals]
+GO
+
+/*
+
+END OF FILE
+
+*/

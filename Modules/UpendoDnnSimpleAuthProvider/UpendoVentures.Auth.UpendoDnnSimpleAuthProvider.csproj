@@ -153,6 +153,7 @@
     </Content>
     <Content Include="Images\logo.png" />
     <Content Include="License.txt" />
+    <Content Include="Templates\EmailTemplate.html" />
     <Content Include="UpendoDnnSimpleAuthProvider.dnn">
       <SubType>Designer</SubType>
     </Content>
@@ -168,9 +169,7 @@
     <Content Include="Logoff.ascx" />
     <Content Include="Settings.ascx" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Templates\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

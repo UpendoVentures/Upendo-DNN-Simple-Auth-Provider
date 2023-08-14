@@ -190,17 +190,19 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
         public static string GetSiteIconUrl()
         {
             // Get the configuration of the current portal using the PortalController's instance
-            PortalSettings portalSettings = PortalController.Instance.GetCurrentPortalSettings();
+            var portalSettings = DnnGlobal.Instance.GetCurrentPortalSettings();
 
             // Get the filename of the site logo from the portal settings
             string logoFile = portalSettings.LogoFile;
 
             // Build the complete URL of the logo by combining portal alias, home directory, and logo filename
-            string portalAlias = portalSettings.PortalAlias.HTTPAlias;
+            string portalAlias = portalSettings.DefaultPortalAlias;
             string portalHomeDirectory = portalSettings.HomeDirectory;
             string completeLogoUrl = $"{portalAlias}{portalHomeDirectory}{logoFile}";
             bool isSecureConnection = HttpContext.Current.Request.IsSecureConnection;
+
             string logoUrl = isSecureConnection ? "https://" + completeLogoUrl : "http://" + completeLogoUrl;
+
             // Return the complete logo URL
             return logoUrl;
         }

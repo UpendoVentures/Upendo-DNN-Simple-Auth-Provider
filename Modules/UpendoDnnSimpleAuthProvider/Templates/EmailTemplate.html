@@ -2,7 +2,7 @@
 <html xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
     <meta http-equiv="Content-Type" content="text /html; charset=unicode">
-    <title>Upendo Authenticator Provider confirmation code: CODE</title>
+    <title>Please Verify Your User Account</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
 
@@ -53,19 +53,24 @@
         <tr>
             <td class="header" style="padding: 24pt 0.75pt">
                 <div align="center">
-                    <img src="LOGO_URL" alt="logo">
+                    <a href="{PORTALALIAS}" target="_blank">
+                        <img src="{LOGO_URL}" alt="{PortalName}" title="{PortalName}" />
+                    </a>
                 </div>
             </td>
         </tr>
         <tr>
             <td style="padding: 0 0.75pt">
                 <div style="margin: 0 37.5pt 22.5pt">
-                    <h1>Confirm your email address</h1>
-                    <p class="heroparagraph">Your confirmation code is below — enter it in your open browser window and we'll help you get signed in.</p>
+                    <h1>Confirm Your User Account</h1>
+                    <p class="heroparagraph">Your unique confirmation code is below — enter it in your open browser window/tab login that sent this, and you'll get signed in.</p>
                 </div>
-                <div class="code-box">CODE</div>
+                <div class="code-box">{CODE}</div>
                 <div style="margin: 0 37.5pt 22.5pt">
-                    <p class="contentparagraph">If you didn’t request this email, there’s nothing to worry about — you can safely ignore it.</p>
+                    <p class="contentparagraph">This code will expire soon!</p>
+                </div>
+                <div style="margin: 0 37.5pt 22.5pt">
+                    <p class="contentparagraph">If you didn’t request this email, please report this incident to your website administrator.</p>
                 </div>
             </td>
         </tr>

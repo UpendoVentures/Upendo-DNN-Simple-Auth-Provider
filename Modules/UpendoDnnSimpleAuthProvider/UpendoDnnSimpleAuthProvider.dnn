@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <dotnetnuke type="Package" version="6.0">
   <packages>
-    <package name="UpendoVentures.Auth.UpendoDnnSimpleAuthProvider" type="Auth_System" version="01.00.00">
+    <package name="UpendoVentures.Auth.UpendoDnnSimpleAuthProvider" type="Auth_System" version="01.00.01">
       <friendlyName>Upendo Simple DNN Auth Provider</friendlyName>
-      <description>
-        <![CDATA[<p>Upendo</p>]]>
-      </description>
+      <description><![CDATA[This is aptly named, because this authentication provider takes most of the pain out of logging in for your end-users.]]></description>
       <iconFile>DesktopModules/UpendoDnnSimpleAuthProvider/Images/logo.png</iconFile>
       <owner>
         <name>Will Strohl</name>
@@ -41,7 +39,7 @@
             <script type="UnInstall">
               <path>Providers\DataProviders\SqlDataProvider</path>
               <name>Uninstall.SqlDataProvider</name>
-              <version>01.00.00</version>
+              <version>01.00.01</version>
             </script>
           </scripts>
         </component>
@@ -51,7 +49,7 @@
             <assembly>
               <name>UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.dll</name>
               <path>bin</path>
-              <version>01.00.00</version>
+              <version>01.00.01</version>
             </assembly>
           </assemblies>
         </component>

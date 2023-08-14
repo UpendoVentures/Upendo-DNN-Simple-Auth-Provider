@@ -32,13 +32,32 @@
 		<p>The following prefixes are defined as:</p>
 		<ul>
 			<li><strong>SI:</strong> Support Inquiry - This issue was reported by a <a href="https://upendoventures.com/Support" target="_blank">support customer</a> and, as such, was prioritized above all other tasks.</li>
-			<li><strong>CI:</strong> Community Inquiry - This issue was reported by a community member in the <a href="https://github.com/UpendoVentures/Page-Settings-Editor/issues" target="_blanK">GitHub issues (or elsewhere)</a>.</li>
+			<li><strong>CI:</strong> Community Inquiry - This issue was reported by a community member in the <a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues" target="_blanK">GitHub issues (or elsewhere)</a>.</li>
+		</ul>
+
+		<h3>Version 01.00.01</h3>
+		<h4>Enhancements</h4>
+		<ul>
+			<li>New Email Template Tokens: `PortalName`, and `PortalAlias`. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/36" target="_blank">Issue 36</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+			<li>Make Email Tokens Actually Look Like Tokens. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/37" target="_blank">Issue 37</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+			<!--
+			<li>SI:  (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/" target="_blank">Issue </a>, thanks <a href="https://github.com/" target="_blank">@</a>!)</li>
+			-->
+		</ul>
+		<h4>Maintenence &amp Bug Fixes</h4>
+		<ul>
+			<li>Default Email Template Had Missing Details and Typos. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/39" target="_blank">Issue 39</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+			<li>Several Static Text Instances Were Not Localized. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/35" target="_blank">Issue 35</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+			<li>`PortalSettings` Retrieval Was Not Consistent. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/38" target="_blank">Issue 38</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+			<!--
+			<li> (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/" target="_blank">Issue </a>, thanks <a href="https://github.com/" target="_blank">@</a>!)</li>
+			-->
 		</ul>
 
 		<h3>Version 01.00.00</h3>
 		<h4>Enhancements</h4>
 		<ul>
-			<li>Initial release with minimal features</li>
+			<li>Initial release with minimal features. Thanks, <a href="https://upendoventures.com/What/CMS/DNN/Extensions" target="_blank">@ArielBlanco1990</a>!</li>
 		</ul>
 		<h4>Maintenence &amp Bug Fixes</h4>
 		<ul>

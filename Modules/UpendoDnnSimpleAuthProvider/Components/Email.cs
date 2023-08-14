@@ -21,42 +21,55 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #endregion
 
-using DotNetNuke.Data;
 using DotNetNuke.Entities.Controllers;
-using System;
-using DotNetNuke.Entities.Modules;
-using DotNetNuke.Entities.Tabs;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Text;
-using DotNetNuke.Entities.Users;
-using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components;
 using DotNetNuke.Entities.Portals;
 using System.IO;
 using System.Web.Hosting;
+using DotNetNuke.Common;
 
 namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
 {
     public class Email
     {
-        public static void Send(string userEmail, string code)
+        private string _logo; 
+        private string _body;
+        private string _verificationCode;
+        private string _fromEmail;
+        private string _toEmail;
+
+        public void Send(string userEmail, string code, string subject)
         {
-            var randomCode = code;
-            string logo = UtilityMethods.GetSiteIconUrl().ToString();
-            string emailSubject = "Upendo Authenticator Provider confirmation code: " + randomCode;
-            var hostEmail = HostController.Instance.GetString("HostEmail");
-            var toEmailAddress = userEmail;
+            Requires.NotNullOrEmpty("userEmail", userEmail);
+            Requires.NotNullOrEmpty("code", code);
+            Requires.NotNullOrEmpty("subject", subject);
+
+            this._verificationCode = code;
+            this._logo = UtilityMethods.GetSiteIconUrl();
+            subject = ReplaceTokens(subject);
+            this._fromEmail = DnnGlobal.Instance.GetPortalEmail();
+            this._toEmail = userEmail;
+
             string valueSettings = PortalController.GetPortalSetting("UpendoSimpleDnnAuth.ConfirmEmail", DnnGlobal.Instance.GetPortalId(), string.Empty);
+
             string serverPath = HostingEnvironment.MapPath(valueSettings);
             var templateContent = File.ReadAllText(serverPath);
             string emailBody = templateContent;
-            emailBody = emailBody.Replace("CODE", randomCode);
-            emailBody = emailBody.Replace("LOGO_URL", logo);
 
-            DotNetNuke.Services.Mail.Mail.SendEmail(hostEmail, toEmailAddress, emailSubject, emailBody);
+            emailBody = ReplaceTokens(emailBody);
+
+            DotNetNuke.Services.Mail.Mail.SendEmail(this._fromEmail, this._toEmail, subject, emailBody);
         }
 
-       
+        private string ReplaceTokens(string value)
+        {
+            var portalSettings = DnnGlobal.Instance.GetCurrentPortalSettings();
+
+            value = value.Replace("{CODE}", this._verificationCode);
+            value = value.Replace("{LOGO_URL}", this._logo);
+            value = value.Replace("{PORTALNAME}", portalSettings.PortalName);
+            value = value.Replace("{PORTALALIAS}", portalSettings.DefaultPortalAlias);
+
+            return value;
+        }
     }
 }

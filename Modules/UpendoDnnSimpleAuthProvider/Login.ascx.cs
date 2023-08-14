@@ -526,23 +526,23 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                         // Inform the user of the remaining time in seconds or minutes
                         if (rest > 60)
                         {
-                            valueMessageSpan.InnerText = " minutes.";
+                            valueMessageSpan.InnerText = $" {Localization.GetString("Minutes")}.";
                             valueTimeSpan.InnerText = UtilityMethods.FormatTime(rest);
                             valueTryMessageSpan.InnerText = "";
                         }
                         else
                         {
-                            valueMessageSpan.InnerText = " seconds.";
+                            valueMessageSpan.InnerText = $" {Localization.GetString("Seconds")}.";
                             valueTimeSpan.InnerText = rest.ToString();
 
                             // Inform the user of the remaining attempts, if applicable
                             if (existingItem.Try == 1 || existingItem.Try == 3)
                             {
-                                valueTryMessageSpan.InnerText = " (Two more attempts left)";
+                                valueTryMessageSpan.InnerText = $" ({Localization.GetString("TwoLeft")})";
                             }
                             if (existingItem.Try == 2)
                             {
-                                valueTryMessageSpan.InnerText = " (One more attempt left)";
+                                valueTryMessageSpan.InnerText = $" ({Localization.GetString("OneLeft")})";
 
                             }
                         }
@@ -561,16 +561,16 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                         if (existingItem.Try == 2 || existingItem.Try == 1)
                         {
                             CounterValue = 60;
-                            valueMessageSpan.InnerText = " seconds.";
+                            valueMessageSpan.InnerText = $" {Localization.GetString("Seconds")}.";
                             valueTimeSpan.InnerText = CounterValue.ToString();
                             if (existingItem.Try == 2)
                             {
-                                valueTryMessageSpan.InnerText = " (One more attempt left)";
+                                valueTryMessageSpan.InnerText = $" ({Localization.GetString("OneLeft")})";
                                 EventLogController.Instance.AddLog("Verification Code Request - Second Attempt", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
                             }
                             else
                             {
-                                valueTryMessageSpan.InnerText = " (Two more attempts left)";
+                                valueTryMessageSpan.InnerText = $" ({Localization.GetString("TwoLeft")})";
                                 EventLogController.Instance.AddLog("Verification Code Request - First Attempt", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
                             }
                         }
@@ -578,16 +578,18 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                         if (existingItem.Try == 3)
                         {
                             CounterValue = 3600;
-                            valueMessageSpan.InnerText = " minutes.";
+                            valueMessageSpan.InnerText = $" {Localization.GetString("Minutes")}.";
                             valueTimeSpan.InnerText = "1:00:00";
-                            valueTryMessageSpan.InnerText = "";
+                            valueTryMessageSpan.InnerText = string.Empty;
                             EventLogController.Instance.AddLog("Verification Code Request - Third Try", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
 
                         }
                         try
                         {
                             // Send the new verification code to the user's email
-                            Email.Send(emailAddress, code);
+                            var ctlEmail = new Email();
+                            var subject = Localization.GetString("Subject", this.LocalResourceFile); // no idea why, but this specific call requires explicitly specifying the resource file. 
+                            ctlEmail.Send(emailAddress, code, subject);
                             EventLogController.Instance.AddLog("Verification Code Send - Successful", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
                         }
                         catch (Exception)
@@ -610,15 +612,17 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                     };
 
                     CounterValue = 60;
-                    valueMessageSpan.InnerText = " seconds.";
-                    valueTryMessageSpan.InnerText = " (Two more attempts left)";
+                    valueMessageSpan.InnerText = $" {Localization.GetString("Seconds")}.";
+                    valueTryMessageSpan.InnerText = $" ({Localization.GetString("TwoLeft")})";
                     valueTimeSpan.InnerText = CounterValue.ToString();
                     EventLogController.Instance.AddLog("Verification Code Request - First Attempt", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
                     VerificationCodeRepository.Instance.CreateItem(data);
                     try
                     {
                         // Send the new verification code to the user's email
-                        Email.Send(emailAddress, code);
+                        var ctlEmail = new Email();
+                        var subject = Localization.GetString("Subject", this.LocalResourceFile); // no idea why, but this specific call requires explicitly specifying the resource file. 
+                        ctlEmail.Send(emailAddress, code, subject);
                         EventLogController.Instance.AddLog("Verification Code Send - Successful", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
 
                     }
@@ -626,7 +630,6 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                     {
                         EventLogController.Instance.AddLog("Verification Code Send - Failure", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.LOG_NOTIFICATION_FAILURE);
                     }
-                  
 
                     DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("SendEmailVerificationCode", this.LocalResourceFile), ModuleMessage.ModuleMessageType.BlueInfo);
                 }
@@ -637,10 +640,5 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                 DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("UserDoesNotExist", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
             }
         }
-
-
-       
-
     }
 }
-

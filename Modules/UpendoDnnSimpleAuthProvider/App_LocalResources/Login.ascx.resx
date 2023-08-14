@@ -159,4 +159,19 @@
   <data name="AccessDenied.Text" xml:space="preserve">
     <value>Incorrect username or verification code.</value>
   </data>
+  <data name="Minutes.Text" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="OneLeft.Text" xml:space="preserve">
+    <value>one attempt remaining</value>
+  </data>
+  <data name="Seconds.Text" xml:space="preserve">
+    <value>seconds</value>
+  </data>
+  <data name="Subject.Text" xml:space="preserve">
+    <value>Please Verify Your User Account</value>
+  </data>
+  <data name="TwoLeft.Text" xml:space="preserve">
+    <value>two attempts remaining</value>
+  </data>
 </root>

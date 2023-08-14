@@ -35,6 +35,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
     public interface IDnnGlobal
     {
         int GetPortalId();
+        string GetPortalEmail();
         PortalInfo GetCurrentPortal();
         PortalSettings GetCurrentPortalSettings();
         Dictionary<string, Locale> GetLocales();
@@ -73,6 +74,15 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
                 if (sett != null)
                     return sett.PortalId;
                 return Null.NullInteger;
+            }
+
+            public string GetPortalEmail()
+            {
+                var sett = GetCurrentPortalSettings();
+
+                if (sett != null)
+                    return sett.Email;
+                return string.Empty;
             }
 
             public PortalInfo GetCurrentPortal()

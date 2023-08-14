@@ -24,6 +24,7 @@ A clear and concise description of what the bug is.
 
 ## Software Versions  
 - DNN:  00.00.00  
+- Provider:  00.00.00  
 
 ## To Reproduce  
 Steps to reproduce the behavior:  

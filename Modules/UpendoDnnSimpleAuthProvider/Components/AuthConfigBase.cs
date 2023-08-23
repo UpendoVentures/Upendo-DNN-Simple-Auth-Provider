@@ -46,19 +46,19 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
         {
             this.Service = service;
 
-            if (this.HostConfig)
-            {
-                this.Enabled = HostController.Instance.GetBoolean(this.Service + "_Enabled", false);
-            }
-            else
-            {
+            //if (this.HostConfig)
+            //{
+            //    this.Enabled = HostController.Instance.GetBoolean(this.Service + "_Enabled", false);
+            //}
+            //else
+            //{
                 this.Enabled = PortalController.GetPortalSettingAsBoolean(this.Service + "_Enabled", portalId, false);
-            }
+            //}
         }
 
         public bool Enabled { get; set; }
 
-        public bool HostConfig { get; set; }
+        //public bool HostConfig { get; set; }
 
         protected string Service { get; set; }
 
@@ -82,15 +82,15 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
 
         public static void UpdateConfig(AuthConfigBase config)
         {
-            if (config.HostConfig)
-            {
-                HostController.Instance.Update(config.Service + "_Enabled", config.Enabled.ToString(CultureInfo.InvariantCulture), true);
-                PortalController.DeletePortalSetting(config.PortalID, config.Service + "_Enabled");
-            }
-            else
-            {
+            //if (config.HostConfig)
+            //{
+            //    HostController.Instance.Update(config.Service + "_Enabled", config.Enabled.ToString(CultureInfo.InvariantCulture), true);
+            //    PortalController.DeletePortalSetting(config.PortalID, config.Service + "_Enabled");
+            //}
+            //else
+            //{
                 PortalController.UpdatePortalSetting(config.PortalID, config.Service + "_Enabled", config.Enabled.ToString(CultureInfo.InvariantCulture));
-            }
+            //}
 
             ClearConfig(config.Service, config.PortalID);
         }

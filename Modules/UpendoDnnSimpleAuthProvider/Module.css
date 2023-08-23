@@ -1,16 +1,6 @@
-#dnn_ctr_Login_tsLogin_lc {
-    display: none
-}
-
 #dnn_ctr_Login_tsLogin_c {
     padding-top: 5%;
 }
-
-/*#dnn_ctr_Login_Upendo_Simple_Auth_Login_Upendo_Simple_Auth_btnSendEmail {
-    width: 200px;
-    min-width: 200px;
-    margin-bottom: 5px;
-}*/
 
 #dnnFormItemSendButton {
     padding-bottom: 5px !important;

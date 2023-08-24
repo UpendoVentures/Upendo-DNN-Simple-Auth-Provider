@@ -526,23 +526,23 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                         // Inform the user of the remaining time in seconds or minutes
                         if (rest > 60)
                         {
-                            valueMessageSpan.InnerText = $" {Localization.GetString("Minutes")}.";
+                            valueMessageSpan.InnerText = $" {Localization.GetString("Minutes", this.LocalResourceFile)}.";
                             valueTimeSpan.InnerText = UtilityMethods.FormatTime(rest);
                             valueTryMessageSpan.InnerText = "";
                         }
                         else
                         {
-                            valueMessageSpan.InnerText = $" {Localization.GetString("Seconds")}.";
+                            valueMessageSpan.InnerText = $" {Localization.GetString("Seconds", this.LocalResourceFile)}.";
                             valueTimeSpan.InnerText = rest.ToString();
 
                             // Inform the user of the remaining attempts, if applicable
                             if (existingItem.Try == 1 || existingItem.Try == 3)
                             {
-                                valueTryMessageSpan.InnerText = $" ({Localization.GetString("TwoLeft")})";
+                                valueTryMessageSpan.InnerText = $" ({Localization.GetString("TwoLeft", this.LocalResourceFile)})";
                             }
                             if (existingItem.Try == 2)
                             {
-                                valueTryMessageSpan.InnerText = $" ({Localization.GetString("OneLeft")})";
+                                valueTryMessageSpan.InnerText = $" ({Localization.GetString("OneLeft", this.LocalResourceFile)})";
 
                             }
                         }
@@ -561,16 +561,17 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                         if (existingItem.Try == 2 || existingItem.Try == 1)
                         {
                             CounterValue = 60;
-                            valueMessageSpan.InnerText = $" {Localization.GetString("Seconds")}.";
+                            valueMessageSpan.InnerText = $" {Localization.GetString("Seconds", this.LocalResourceFile)}.";
                             valueTimeSpan.InnerText = CounterValue.ToString();
                             if (existingItem.Try == 2)
                             {
-                                valueTryMessageSpan.InnerText = $" ({Localization.GetString("OneLeft")})";
+                                string valueTryMessageSpanS = $" {Localization.GetString("OneLeft", this.LocalResourceFile)}";
+                                valueTryMessageSpan.InnerText = $" ({Localization.GetString("OneLeft", this.LocalResourceFile)})";
                                 EventLogController.Instance.AddLog("Verification Code Request - Second Attempt", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
                             }
                             else
                             {
-                                valueTryMessageSpan.InnerText = $" ({Localization.GetString("TwoLeft")})";
+                                valueTryMessageSpan.InnerText = $" ({Localization.GetString("TwoLeft", this.LocalResourceFile)})";
                                 EventLogController.Instance.AddLog("Verification Code Request - First Attempt", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
                             }
                         }
@@ -578,7 +579,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                         if (existingItem.Try == 3)
                         {
                             CounterValue = 3600;
-                            valueMessageSpan.InnerText = $" {Localization.GetString("Minutes")}.";
+                            valueMessageSpan.InnerText = $" {Localization.GetString("Minutes", this.LocalResourceFile)}.";
                             valueTimeSpan.InnerText = "1:00:00";
                             valueTryMessageSpan.InnerText = string.Empty;
                             EventLogController.Instance.AddLog("Verification Code Request - Third Try", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
@@ -612,6 +613,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                     };
 
                     CounterValue = 60;
+                    string sdf = Localization.GetString("Seconds", this.LocalResourceFile);
                     valueMessageSpan.InnerText = $" {Localization.GetString("Seconds")}.";
                     valueTryMessageSpan.InnerText = $" ({Localization.GetString("TwoLeft")})";
                     valueTimeSpan.InnerText = CounterValue.ToString();

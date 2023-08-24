@@ -19,6 +19,7 @@
 			<li>Dan Rice, <a href="https://www.puresystems.co.uk/" target="_blank">Pure Systems</a></li>
 			<li>Matt Rutledge, <a href="https://beleivekids.com/" target="_blank">Believe Kids</a></li>
 			<li>Adam Bernstein, <a href="https://practicewise.com/" target="_blank">PracticeWise</a></li>
+			<li><a href="https://github.com/sponsors/UpendoVentures" target="_blank">(anonymous sponsor), N/A</a></li>
 		</ul>
 	
 		<h3>Contributors</h3>
@@ -35,23 +36,34 @@
 			<li><strong>CI:</strong> Community Inquiry - This issue was reported by a community member in the <a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues" target="_blanK">GitHub issues (or elsewhere)</a>.</li>
 		</ul>
 
-		<h3>Version 01.00.01</h3>
+		<h3>Version 01.00.02</h3>
 		<h4>Enhancements</h4>
 		<ul>
-			<li>New Email Template Tokens: `PortalName`, and `PortalAlias`. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/36" target="_blank">Issue 36</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
-			<li>Make Email Tokens Actually Look Like Tokens. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/37" target="_blank">Issue 37</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+			<li>Implemented Enable/Disable Setting: Superusers can now enable/disable the authentication provider in its respective settings view (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/43" target="_blank">Issue 43</a>, thanks <a href="https://github.com/ArielBlanco1990" target="_blank">@ArielBlanco1990</a>!)</li>
 			<!--
 			<li>SI:  (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/" target="_blank">Issue </a>, thanks <a href="https://github.com/" target="_blank">@</a>!)</li>
 			-->
 		</ul>
 		<h4>Maintenence &amp Bug Fixes</h4>
 		<ul>
-			<li>Default Email Template Had Missing Details and Typos. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/39" target="_blank">Issue 39</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
-			<li>Several Static Text Instances Were Not Localized. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/35" target="_blank">Issue 35</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
-			<li>`PortalSettings` Retrieval Was Not Consistent. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/38" target="_blank">Issue 38</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+			<li>Some text wasn't yet localized. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/45" target="_blank">Issue 45</a>, thanks <a href="https://github.com/ArielBlanco1990" target="_blank">@ArielBlanco1990</a>!)</li>
+			<li>Resolved several minor display issues. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/47" target="_blank">Issue 47</a>, thanks <a href="https://github.com/ArielBlanco1990" target="_blank">@ArielBlanco1990</a>!)</li>
 			<!--
 			<li> (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/" target="_blank">Issue </a>, thanks <a href="https://github.com/" target="_blank">@</a>!)</li>
 			-->
+		</ul>
+
+		<h3>Version 01.00.01</h3>
+		<h4>Enhancements</h4>
+		<ul>
+			<li>New Email Template Tokens: `PortalName`, and `PortalAlias`. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/36" target="_blank">Issue 36</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+			<li>Make Email Tokens Actually Look Like Tokens. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/37" target="_blank">Issue 37</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+		</ul>
+		<h4>Maintenence &amp Bug Fixes</h4>
+		<ul>
+			<li>Default Email Template Had Missing Details and Typos. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/39" target="_blank">Issue 39</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+			<li>Several Static Text Instances Were Not Localized. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/35" target="_blank">Issue 35</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+			<li>`PortalSettings` Retrieval Was Not Consistent. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/38" target="_blank">Issue 38</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
 		</ul>
 
 		<h3>Version 01.00.00</h3>

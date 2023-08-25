@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Login.ascx.cs" Inherits="UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Login" %>
+<%@ Import Namespace="DotNetNuke.Common.Utilities" %>
 <%@ Register TagPrefix="dnn" Assembly="DotNetNuke" Namespace="DotNetNuke.UI.WebControls" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls.Internal" Assembly="DotNetNuke.Web" %>
 
@@ -12,7 +13,7 @@
         <div class="dnnLabel">
             <asp:Label ID="plUsername" AssociatedControlID="txtUsername" runat="server" CssClass="dnnFormLabel" />
         </div>
-        <asp:TextBox ID="txtUsername" runat="server" placeholder="Username" />
+        <asp:TextBox ID="txtUsername" runat="server" placeholder="Username" ValidationGroup="Upendo" />
     </div>
 
 
@@ -23,8 +24,8 @@
     <div id="dnnFormItemSendButton" class="dnnFormItem">
         <div class="dnnLabel">
         </div>
-        <asp:LinkButton ID="btnSendEmailDisabled" runat="server" Text="Send Code" CssClass="" Enabled="false" />
-        <asp:LinkButton ID="btnSendEmail" runat="server" Text="Send Code" CssClass="" OnClick="btnSendEmail_Click" />
+        <asp:LinkButton ID="btnSendEmailDisabled" runat="server" Text="Send Code" CssClass="" Enabled="false" ValidationGroup="Upendo" />
+        <asp:LinkButton ID="btnSendEmail" runat="server" Text="Send Code" CssClass="" OnClick="btnSendEmail_Click" ValidationGroup="Upendo" />
     </div>
 
     <div class="dnnFormItem">
@@ -38,34 +39,32 @@
         <asp:Label ID="plCaptcha" AssociatedControlID="ctlCaptcha" runat="server" resourcekey="Captcha" CssClass="dnnFormLabel" />
     </div>
     <div class="dnnFormItem dnnCaptcha" id="divCaptcha2" runat="server" visible="false">
-        <dnn:captchacontrol id="ctlCaptcha" captchawidth="130" captchaheight="40" runat="server" errorstyle-cssclass="dnnFormMessage dnnFormError dnnCaptcha" viewstatemode="Disabled" />
+        <dnn:captchacontrol id="ctlCaptcha" captchawidth="130" captchaheight="40" runat="server" errorstyle-cssclass="dnnFormMessage dnnFormError dnnCaptcha" viewstatemode="Disabled" ValidationGroup="Upendo" />
     </div>
     <div class="dnnFormItem hidden">
         <asp:Label ID="lblLoginRememberMe" runat="server" CssClass="dnnFormLabel" />
         <span class="dnnLoginRememberMe">
-            <asp:CheckBox ID="chkCookie" resourcekey="Remember" runat="server" /></span>
+            <asp:CheckBox ID="chkCookie" resourcekey="Remember" runat="server" ValidationGroup="Upendo" /></span>
     </div>
     <div class="dnnFormItem">
-        <asp:Label ID="lblLogin" runat="server" AssociatedControlID="cmdLogin" CssClass="dnnFormLabel" ViewStateMode="Disabled" />
-        <asp:LinkButton ID="cmdLogin" resourcekey="cmdLogin" CssClass="dnnPrimaryAction" Text="Login" runat="server" CausesValidation="false" />
-        <asp:HyperLink ID="cancelLink" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" CausesValidation="false" />
+        <asp:Label ID="lblLogin" runat="server" AssociatedControlID="cmdLogin" CssClass="dnnFormLabel" ViewStateMode="Disabled" ValidationGroup="Upendo" />
+        <asp:LinkButton ID="cmdLogin" resourcekey="cmdLogin" CssClass="dnnPrimaryAction" Text="Login" runat="server" CausesValidation="false" ValidationGroup="Upendo" />
+        <asp:HyperLink ID="cancelLink" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" CausesValidation="false" ValidationGroup="Upendo" />
     </div>
     <div class="dnnFormItem hidden">
         <span class="dnnFormLabel">&nbsp;</span>
         <div class="dnnLoginActions">
             <ul class="dnnActions dnnClear">
                 <li id="liRegister" runat="server">
-                    <asp:HyperLink ID="registerLink" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdRegister" ViewStateMode="Disabled" /></li>
+                    <asp:HyperLink ID="registerLink" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdRegister" ViewStateMode="Disabled" ValidationGroup="Upendo" /></li>
                 <li id="liPassword" runat="server">
-                    <asp:HyperLink ID="passwordLink" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdPassword" ViewStateMode="Disabled" /></li>
+                    <asp:HyperLink ID="passwordLink" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdPassword" ViewStateMode="Disabled" ValidationGroup="Upendo" /></li>
             </ul>
         </div>
     </div>
     <asp:HiddenField ID="moodleRestUrl" runat="server" />
     <asp:HiddenField ID="moodleWantsUrl" runat="server" />
 </div>
-
-
 
 <dnn:dnnscriptblock runat="server">
     <script type="text/javascript">
@@ -250,4 +249,3 @@
         toggleSendVerificationCodeButton();
     </script>
 </dnn:dnnscriptblock>
-

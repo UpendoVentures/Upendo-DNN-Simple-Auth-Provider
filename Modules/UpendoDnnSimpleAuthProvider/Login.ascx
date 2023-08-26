@@ -18,7 +18,7 @@
 
 
     <div id="msgCounter" class="dnnFormItem hidden" style="padding-left: 20%;">
-        <p>Didn't see the email? You can try to resend the code in <strong><span id="valueTimeSpan" runat="server"></span></strong><span id="valueMessageSpan" runat="server"></span><span id="valueTryMessageSpan" runat="server"></span></p>
+        <p><span id="valueNotifyMessageSpan" runat="server"></span> <strong><span id="valueTimeSpan" runat="server"></span></strong><span id="valueMessageSpan" runat="server"></span><span id="valueTryMessageSpan" runat="server"></span></p>
     </div>
 
     <div id="dnnFormItemSendButton" class="dnnFormItem">
@@ -30,7 +30,7 @@
 
     <div class="dnnFormItem">
         <div class="dnnLabel">
-            <asp:Label ID="plPassword" AssociatedControlID="txtPassword" runat="server" resourcekey="Passwords" CssClass="dnnFormLabel" ViewStateMode="Disabled">Verification Code</asp:Label>
+            <asp:Label ID="plPassword" AssociatedControlID="txtPassword" runat="server" resourcekey="Passwords" CssClass="dnnFormLabel" ViewStateMode="Disabled"><span id="valueVerificationCodeMessageSpan" runat="server"></span></asp:Label>
         </div>
         <asp:TextBox ID="txtPassword" runat="server" placeholder="Code Verification" />
     </div>

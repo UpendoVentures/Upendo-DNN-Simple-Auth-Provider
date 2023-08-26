@@ -449,6 +449,9 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         /// <param name="e"></param>
         protected void btnSendEmail_Click(object sender, EventArgs e)
         {
+            valueNotifyMessageSpan.InnerText = $" {Localization.GetString("NotifyMessage", this.LocalResourceFile)}.";
+            valueVerificationCodeMessageSpan.InnerText = $" {Localization.GetString("VerificationCodeMessage", this.LocalResourceFile)}.";
+
             string userName = PortalSecurity.Instance.InputFilter(
                  this.txtUsername.Text,
                  PortalSecurity.FilterFlag.NoScripting |
@@ -639,7 +642,8 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
             else
             {
                 // The user object is null, display a module message
-                DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("UserDoesNotExist", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
+                DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("SendEmailVerificationCode", this.LocalResourceFile), ModuleMessage.ModuleMessageType.BlueInfo);
+
             }
         }
     }

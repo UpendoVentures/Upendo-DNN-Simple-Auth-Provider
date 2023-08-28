@@ -42,6 +42,15 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         protected global::System.Web.UI.WebControls.TextBox txtUsername;
 
         /// <summary>
+        /// valueNotifyMessageSpan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl valueNotifyMessageSpan;
+
+        /// <summary>
         /// valueTimeSpan control.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label plPassword;
+
+        /// <summary>
+        /// valueVerificationCodeMessageSpan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl valueVerificationCodeMessageSpan;
 
         /// <summary>
         /// txtPassword control.

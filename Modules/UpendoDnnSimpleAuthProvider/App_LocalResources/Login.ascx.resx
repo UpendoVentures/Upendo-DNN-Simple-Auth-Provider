@@ -174,4 +174,10 @@
   <data name="TwoLeft.Text" xml:space="preserve">
     <value>two attempts remaining</value>
   </data>
+  <data name="NotifyMessage.Text" xml:space="preserve">
+    <value>Didn't see the email? You can try to resend the code in</value>
+  </data>
+  <data name="VerificationCodeMessage.Text" xml:space="preserve">
+    <value>Verification Code</value>
+  </data>
 </root>

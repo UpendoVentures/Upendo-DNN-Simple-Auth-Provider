@@ -34,9 +34,22 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 
         public override void UpdateSettings()
         {
-            if (this.SettingsEditor.IsValid && this.SettingsEditor.IsDirty)
+            if(this.SettingsEditor.IsValid && this.SettingsEditor.IsDirty)
             {
                 var config = (AuthConfigBase)SettingsEditor.DataSource;
+                if (config.Enabled == true)
+                {
+                    var authSystems = AuthenticationController.GetAuthenticationServiceByType("Upendo Simple Auth");
+                    authSystems.IsEnabled = true;
+                    AuthenticationController.UpdateAuthentication(authSystems);
+                }
+                if (config.Enabled == false)
+                {
+                    var authSystems = AuthenticationController.GetAuthenticationServiceByType("Upendo Simple Auth");
+                    authSystems.IsEnabled = false;
+                    AuthenticationController.UpdateAuthentication(authSystems);
+                }
+
                 AuthConfigBase.UpdateConfig(config);
             }
         }

@@ -116,6 +116,7 @@
       <DependentUpon>Settings.ascx</DependentUpon>
     </Compile>
     <Compile Include="Components\UtilityMethods.cs" />
+    <Compile Include="Utility\UpendoDnnSimpleAuthConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\Upendo-logo-trans-230x65.png" />

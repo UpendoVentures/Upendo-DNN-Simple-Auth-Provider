@@ -43,6 +43,19 @@ INSERT INTO {databaseOwner}[{objectQualifier}PortalSettings]
 		SELECT PortalID, 'UpendoSimpleDnnAuth.ConfirmEmail', '/DesktopModules/UpendoDnnSimpleAuthProvider/Templates/EmailTemplate.html', -1, GETDATE(), -1, GETDATE(), '' FROM {databaseOwner}[{objectQualifier}Portals]
 GO
 
+INSERT INTO {databaseOwner}[{objectQualifier}PortalSettings]
+        ( PortalID ,
+          SettingName ,
+          SettingValue ,
+          CreatedByUserID ,
+          CreatedOnDate ,
+          LastModifiedByUserID ,
+          LastModifiedOnDate ,
+          CultureCode
+        )
+		SELECT PortalID, 'Upendo Simple Auth_Enabled', 'True', -1, GETDATE(), -1, GETDATE(), '' FROM {databaseOwner}[{objectQualifier}Portals]
+GO
+
 /*
 
 END OF FILE

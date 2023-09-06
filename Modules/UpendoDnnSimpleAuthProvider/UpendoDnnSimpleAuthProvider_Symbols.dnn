@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <dotnetnuke type="Package" version="6.0">
   <packages>
-    <package name="UpendoVentures.Auth.UpendoDnnSimpleAuthProvider_Symbols" type="Library" version="01.00.02">
+    <package name="UpendoVentures.Auth.UpendoDnnSimpleAuthProvider_Symbols" type="Library" version="01.00.03">
       <friendlyName>UpendoDnnSimpleAuthProvider Module Symbols</friendlyName>
       <description><![CDATA[This is aptly named, because this authentication provider takes most of the pain out of logging in for your end-users.]]></description>
       <owner>
@@ -14,13 +14,13 @@
       <releaseNotes src="ReleaseNotes.txt" />
       <azureCompatible>True</azureCompatible>
       <dependencies>
-        <dependency type="managedPackage" version="1.0.2">UpendoVentures.Auth.UpendoDnnSimpleAuthProvider</dependency>
+        <dependency type="managedPackage" version="1.0.3">UpendoVentures.Auth.UpendoDnnSimpleAuthProvider</dependency>
       </dependencies>
-
       <components>
         <component type="ResourceFile">
           <resourceFiles>
-            <basePath></basePath>
+            <basePath>
+            </basePath>
             <resourceFile>
               <name>Resources.zip</name>
             </resourceFile>

@@ -13,26 +13,26 @@
         <div class="dnnLabel">
             <asp:Label ID="plUsername" AssociatedControlID="txtUsername" runat="server" CssClass="dnnFormLabel" />
         </div>
-        <asp:TextBox ID="txtUsername" runat="server" placeholder="Username" ValidationGroup="Upendo" />
+        <asp:TextBox ID="txtUsername" runat="server" placeholder="Username" ValidationGroup="Upendo" ClientIDMode="Static"/>
     </div>
 
 
-    <div id="msgCounter" class="dnnFormItem hidden" style="padding-left: 20%;">
-        <p><span id="valueNotifyMessageSpan" runat="server"></span> <strong><span id="valueTimeSpan" runat="server"></span></strong><span id="valueMessageSpan" runat="server"></span><span id="valueTryMessageSpan" runat="server"></span></p>
+    <div id="msgCounter" class="dnnFormItem hidden" style="padding-left: 20%;" ClientIDMode="Static">
+        <p><span id="valueNotifyMessageSpan" runat="server" ClientIDMode="Static"></span> <strong><span id="valueTimeSpan" runat="server" ClientIDMode="Static"></span></strong><span id="valueMessageSpan" runat="server" ClientIDMode="Static"></span><span id="valueTryMessageSpan" runat="server" ClientIDMode="Static"></span></p>
     </div>
 
     <div id="dnnFormItemSendButton" class="dnnFormItem">
         <div class="dnnLabel">
         </div>
-        <asp:LinkButton ID="btnSendEmailDisabled" runat="server" Text="Send Code" CssClass="" Enabled="false" ValidationGroup="Upendo" />
-        <asp:LinkButton ID="btnSendEmail" runat="server" Text="Send Code" CssClass="" OnClick="btnSendEmail_Click" ValidationGroup="Upendo" />
+        <asp:LinkButton ID="btnSendEmailDisabled" runat="server" Text="Send Code" CssClass="" Enabled="false" ValidationGroup="Upendo" ClientIDMode="Static" />
+        <asp:LinkButton ID="btnSendEmail" runat="server" Text="Send Code" CssClass="" OnClick="btnSendEmail_Click" ValidationGroup="Upendo" ClientIDMode="Static" />
     </div>
 
     <div class="dnnFormItem">
         <div class="dnnLabel">
-            <asp:Label ID="plPassword" AssociatedControlID="txtPassword" runat="server" resourcekey="Passwords" CssClass="dnnFormLabel" ViewStateMode="Disabled"><span id="valueVerificationCodeMessageSpan" runat="server"></span></asp:Label>
+            <asp:Label ID="plPassword" AssociatedControlID="txtPassword" runat="server" resourcekey="Passwords" CssClass="dnnFormLabel" ViewStateMode="Disabled"><span id="valueVerificationCodeMessageSpan" runat="server" ></span></asp:Label>
         </div>
-        <asp:TextBox ID="txtPassword" runat="server" placeholder="Code Verification" />
+        <asp:TextBox ID="txtPassword" runat="server" placeholder="Code Verification" ClientIDMode="Static"/>
     </div>
 
     <div class="dnnFormItem" id="divCaptcha1" runat="server" visible="false">
@@ -125,11 +125,17 @@
     </script>
     <script type="text/javascript">
         // Get the elements by their IDs
-        var valueMessageSpan = document.getElementById('dnn_ctr_Login_Upendo Simple Auth_Login_Upendo Simple Auth_valueMessageSpan');
-        var valueTimeSpan = document.getElementById('dnn_ctr_Login_Upendo Simple Auth_Login_Upendo Simple Auth_valueTimeSpan');
-        var sendVerificationCodeButton = document.getElementById('dnn_ctr_Login_Upendo Simple Auth_Login_Upendo Simple Auth_btnSendEmail');
-        var sendVerificationCodeButtonDisabled = document.getElementById('dnn_ctr_Login_Upendo Simple Auth_Login_Upendo Simple Auth_btnSendEmailDisabled');
+        var valueMessageSpan = document.getElementById('valueMessageSpan');
+        var dnnConatinerPanel = document.getElementById('dnn_ctr_Login_pnlLoginContainer'); 
+        var valueTimeSpan = document.getElementById('valueTimeSpan');
+        var sendVerificationCodeButton = document.getElementById('btnSendEmail');
+        var sendVerificationCodeButtonDisabled = document.getElementById('btnSendEmailDisabled');
         var msgCounter = document.getElementById('msgCounter');
+
+        if (dnnConatinerPanel !== null) {
+            dnnConatinerPanel.classList.remove('LoginPanel');
+            dnnConatinerPanel.classList.add('LoginContainer');
+        }
 
         // Check if the verification code type is "seconds."
         if (valueMessageSpan.innerText === " seconds.") {
@@ -172,7 +178,7 @@
             // Function to decrement the countdown timer
             function decrementCounter() {
                 // Get the element containing the current time in format HH:mm:ss
-                var timerDiv = document.getElementById('dnn_ctr_Login_Upendo Simple Auth_Login_Upendo Simple Auth_valueTimeSpan');
+                var timerDiv = document.getElementById('valueTimeSpan');
 
                 // Get the current time as a string and split it into hours, minutes, and seconds
                 var currentTime = timerDiv.innerText;
@@ -226,9 +232,9 @@
         // Function to enable or disable the button depending on the length of the text in the password field
         function toggleSendVerificationCodeButton() {
             // Get references to the password input field and both send verification code buttons
-            var passwordInput = document.getElementById('dnn_ctr_Login_Upendo Simple Auth_Login_Upendo Simple Auth_txtUsername');
-            var sendVerificationCodeButton = document.getElementById('dnn_ctr_Login_Upendo Simple Auth_Login_Upendo Simple Auth_btnSendEmail');
-            var sendVerificationCodeButtonDisabled = document.getElementById('dnn_ctr_Login_Upendo Simple Auth_Login_Upendo Simple Auth_btnSendEmailDisabled');
+            var passwordInput = document.getElementById('txtUsername');
+            var sendVerificationCodeButton = document.getElementById('btnSendEmail');
+            var sendVerificationCodeButtonDisabled = document.getElementById('btnSendEmailDisabled');
 
             // Check if the password input length is less than 3 characters
             if (passwordInput.value.length < 3) {
@@ -243,7 +249,7 @@
         }
 
         // Attach the toggleSendVerificationCodeButton function to the keyup event of the password field
-        document.getElementById('dnn_ctr_Login_Upendo Simple Auth_Login_Upendo Simple Auth_txtUsername').addEventListener('keyup', toggleSendVerificationCodeButton);
+        document.getElementById('txtUsername').addEventListener('keyup', toggleSendVerificationCodeButton);
 
         // Call the function initially to set the initial state of the button
         toggleSendVerificationCodeButton();

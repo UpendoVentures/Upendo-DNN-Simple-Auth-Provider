@@ -12,6 +12,10 @@ GO
 
 DELETE FROM {databaseOwner}[{objectQualifier}PortalSettings] WHERE SettingName = 'UpendoSimpleDnnAuth.ConfirmEmail';
 GO
+
+DELETE FROM {databaseOwner}[{objectQualifier}PortalSettings] WHERE SettingName = 'Upendo Simple Auth_Enabled';
+GO
+
 /*
 
 END OF FILE

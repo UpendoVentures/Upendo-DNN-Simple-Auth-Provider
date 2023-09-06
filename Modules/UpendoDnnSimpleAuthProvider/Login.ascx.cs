@@ -50,6 +50,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
     using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Data;
     using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Data.Cryptography;
     using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Models;
+    using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Utility;
     using Globals = DotNetNuke.Common.Globals;
     using Host = DotNetNuke.Entities.Host.Host;
 
@@ -78,7 +79,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         {
             get
             {
-                return AuthenticationConfig.GetConfig(this.PortalId).Enabled;
+                return UpendoDnnSimpleAuthConfig.GetConfig(this.PortalId).Enabled;
             }
         }
 
@@ -89,7 +90,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         {
             get
             {
-                return AuthenticationConfig.GetConfig(this.PortalId).UseCaptcha;
+                return UpendoDnnSimpleAuthConfig.GetConfig(this.PortalId).UseCaptcha;
             }
         }
 
@@ -120,6 +121,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 
             this.lblLogin.Text = Localization.GetSystemMessage(this.PortalSettings, "MESSAGE_LOGIN_INSTRUCTIONS");
             this.LoginHeader.InnerText = Localization.GetString("LoginHeader", this.LocalResourceFile);
+            this.valueVerificationCodeMessageSpan.InnerText = Localization.GetString("VerificationCodeMessage", this.LocalResourceFile);
 
             if (string.IsNullOrEmpty(this.lblLogin.Text))
             {
@@ -449,8 +451,8 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         /// <param name="e"></param>
         protected void btnSendEmail_Click(object sender, EventArgs e)
         {
-            valueNotifyMessageSpan.InnerText = $" {Localization.GetString("NotifyMessage", this.LocalResourceFile)}.";
-            valueVerificationCodeMessageSpan.InnerText = $" {Localization.GetString("VerificationCodeMessage", this.LocalResourceFile)}.";
+            this.valueNotifyMessageSpan.InnerText = Localization.GetString("NotifyMessage", this.LocalResourceFile);
+            this.valueVerificationCodeMessageSpan.InnerText = Localization.GetString("VerificationCodeMessage", this.LocalResourceFile);
 
             string userName = PortalSecurity.Instance.InputFilter(
                  this.txtUsername.Text,

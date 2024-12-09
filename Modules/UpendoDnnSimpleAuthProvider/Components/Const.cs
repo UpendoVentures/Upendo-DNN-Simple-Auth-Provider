@@ -22,5 +22,11 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
     public class Const
     {
         public const string AUTH_SYSTEM_TYPE = "Upendo Simple Auth";
+    } 
+    
+    public class LoginConst
+    {
+        public const string UPENDO_SIMPLE_DNN_AUTH_CONFIRM_EMAIL = "UpendoSimpleDnnAuth.ConfirmEmail";
+        public const string EMAIL_TEMPLATE_PATH = "/DesktopModules/UpendoDnnSimpleAuthProvider/Templates/EmailTemplate.html";
     }
 }

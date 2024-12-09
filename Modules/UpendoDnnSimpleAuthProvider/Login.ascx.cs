@@ -21,30 +21,21 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 {
     using System;
     using System.Linq;
-    using System.Net.Mail;
-    using System.Net.PeerToPeer;
-    using System.Security.Cryptography;
     using System.Web;
     using System.Web.UI;
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
     using DotNetNuke.Abstractions;
     using DotNetNuke.Common.Utilities;
-    using DotNetNuke.Entities.Modules;
     using DotNetNuke.Entities.Portals;
     using DotNetNuke.Entities.Users;
-    using DotNetNuke.Framework.JavaScriptLibraries;
     using DotNetNuke.Instrumentation;
     using DotNetNuke.Security;
     using DotNetNuke.Security.Membership;
     using DotNetNuke.Services.Authentication;
+    using DotNetNuke.Services.Exceptions;
     using DotNetNuke.Services.Localization;
     using DotNetNuke.Services.Log.EventLog;
-    using DotNetNuke.UI.Skins;
     using DotNetNuke.UI.Skins.Controls;
-    using DotNetNuke.UI.UserControls;
     using DotNetNuke.Web.Client.ClientResourceManagement;
-    using Hotcakes.Commerce.Accounts;
     using Microsoft.Extensions.DependencyInjection;
     using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components;
     using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Data;
@@ -103,11 +94,14 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 
         protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);
+            base.OnLoad(e);          
             if (!Page.IsPostBack)
             {
                 moodleRestUrl.Value = Request["resturl"];
                 moodleWantsUrl.Value = Request["wantsurl"];
+
+                // Check and create email template if it doesn't exist
+                EnsureEmailTemplateExists();
             }
 
             this.cmdLogin.Click += this.OnLoginClick;
@@ -646,6 +640,29 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                 // The user object is null, display a module message
                 DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("SendEmailVerificationCode", this.LocalResourceFile), ModuleMessage.ModuleMessageType.BlueInfo);
 
+            }
+        }
+
+        /// <summary>
+        /// Ensure that the email template exists in the portal configuration.
+        /// </summary>
+        private void EnsureEmailTemplateExists()
+        {
+            try
+            {
+                var portalSettings = PortalSettings.Current;
+                string templatePath = PortalController.GetPortalSetting(LoginConst.UPENDO_SIMPLE_DNN_AUTH_CONFIRM_EMAIL, portalSettings.PortalId, string.Empty);
+
+                if (string.IsNullOrEmpty(templatePath))
+                {
+                    // Create portal configuration for email template
+                    string defaultTemplatePath = LoginConst.EMAIL_TEMPLATE_PATH;
+                    PortalController.UpdatePortalSetting(portalSettings.PortalId, LoginConst.UPENDO_SIMPLE_DNN_AUTH_CONFIRM_EMAIL, defaultTemplatePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                Exceptions.LogException(ex);
             }
         }
     }

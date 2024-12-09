@@ -24,6 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using DotNetNuke.Abstractions.Portals;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
 using DotNetNuke.Entities.Portals;
@@ -116,7 +117,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
 
             public CultureInfo GetPageLocale()
             {
-                var portalSettings = Instance.GetCurrentPortalSettings();
+                IPortalSettings portalSettings = Instance.GetCurrentPortalSettings();
                 return Localization.GetPageLocale(portalSettings);
             }
         }

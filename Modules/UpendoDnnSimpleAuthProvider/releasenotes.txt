@@ -15,19 +15,17 @@
 		<p>Sponsorship is <em>Powered by GitHub Sponsors</em> and ensures that this project lives and thrives. <a href="https://github.com/sponsors/UpendoVentures" target="_blank">Please consider contributing</a> any amount.</p>
 		<p>THANK YOU to the following rockstars!</p>
 		<ul>
-			<li>David Poindexter, <a href="https://nvisionative.com/" target="_blank">nvisionative</a></li>
-			<li>Dan Rice, <a href="https://www.puresystems.co.uk/" target="_blank">Pure Systems</a></li>
-			<li>Matt Rutledge, <a href="https://beleivekids.com/" target="_blank">Believe Kids</a></li>
 			<li>Adam Bernstein, <a href="https://practicewise.com/" target="_blank">PracticeWise</a></li>
-			<li><a href="https://github.com/sponsors/UpendoVentures" target="_blank">(anonymous sponsor), N/A</a></li>
-			<li><a href="https://github.com/sponsors/UpendoVentures" target="_blank">(anonymous sponsor), N/A</a></li>
+			<li>Jeremy Farrance, <a href="https://accuraty.com/" target="_blank">Accuraty</a></li>
+			<li><a href="https://github.com/JohnRamminger" target="_blank">John Ramminger</a></li>
+			<li>(<i>two private sponsors</i>)</li>
 		</ul>
 	
 		<h3>Contributors</h3>
 		<p>THANK YOU to the following community members for participating in this release!</p>
 		<ul>
 			<li>Will Strohl, <a href="https://upendoventures.com/How/People/Will-Strohl" target="_blank">Upendo Ventures</a></li>
-			<li>Ariel Blanco, <a href="https://upendoventures.com/What/CMS/DNN/Extensions" target="_blank">Upendo Ventures</a></li>
+			<li>Alejandro Roman, <a href="https://upendoventures.com/What/CMS/DNN/Extensions" target="_blank">Upendo Ventures</a></li>
 		</ul>
 	
 		<h3><strong>Release Note Prefixes</strong></h3>
@@ -35,6 +33,27 @@
 		<ul>
 			<li><strong>SI:</strong> Support/Sponsor Inquiry - This issue was reported by a <a href="https://upendoventures.com/Support" target="_blank">support customer and/or sponsor</a> and, as such, was prioritized above all other tasks.</li>
 		</ul>
+
+		<h3>Version 01.01.00</h3>
+		<h4>Enhancements</h4>
+		<ul>
+			<li>Increased Support for Multiple Portals (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/31" target="_blank">Issue 31</a>, thanks <a href="https://github.com/alejoroman0605" target="_blank">@alejoroman0605</a>!)</li>
+			<li>Raised Minimum DNN Support to 09.11.00 (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/64" target="_blank">Issue 64</a>, thanks <a href="https://github.com/alejoroman0605" target="_blank">@alejoroman0605</a>!)</li>
+			<!--
+			<li>SI:  (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/" target="_blank">Issue </a>, thanks <a href="https://github.com/" target="_blank">@</a>!)</li>
+			<li>None at this time.</li>
+			-->
+		</ul>
+		<h4>Maintenence &amp Bug Fixes</h4>
+		<ul>
+			<li>Increased the .NET Framework Build Version to 4.8 (No Issue), thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+			<li>Added a Missing Reference to System.Web.Extensions to Fix the Build Process (No Issue), thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+			<!--
+			<li> (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/" target="_blank">Issue </a>, thanks <a href="https://github.com/" target="_blank">@</a>!)</li>
+			<li>None at this time.</li>
+			-->
+		</ul>
+		<hr />
 
 		<h3>Version 01.00.03</h3>
 		<h4>Enhancements</h4>
@@ -52,6 +71,7 @@
 			<li> (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/" target="_blank">Issue </a>, thanks <a href="https://github.com/" target="_blank">@</a>!)</li>
 			-->
 		</ul>
+		<hr />
 
 		<h3>Version 01.00.02</h3>
 		<h4>Enhancements</h4>
@@ -63,6 +83,7 @@
 			<li>Some text wasn't yet localized. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/45" target="_blank">Issue 45</a>, thanks <a href="https://github.com/ArielBlanco1990" target="_blank">@ArielBlanco1990</a>!)</li>
 			<li>Resolved several minor display issues. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/47" target="_blank">Issue 47</a>, thanks <a href="https://github.com/ArielBlanco1990" target="_blank">@ArielBlanco1990</a>!)</li>
 		</ul>
+		<hr />
 
 		<h3>Version 01.00.01</h3>
 		<h4>Enhancements</h4>
@@ -76,6 +97,7 @@
 			<li>Several Static Text Instances Were Not Localized. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/35" target="_blank">Issue 35</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
 			<li>`PortalSettings` Retrieval Was Not Consistent. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/38" target="_blank">Issue 38</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
 		</ul>
+		<hr />
 
 		<h3>Version 01.00.00</h3>
 		<h4>Enhancements</h4>
@@ -86,6 +108,7 @@
 		<ul>
 			<li>N/A</li>
 		</ul>
+		<hr />
 
 	</div>
 </div>

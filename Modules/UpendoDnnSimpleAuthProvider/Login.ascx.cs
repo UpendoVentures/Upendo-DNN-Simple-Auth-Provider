@@ -21,9 +21,12 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 {
     using System;
     using System.Linq;
+    using System.Net;
     using System.Web;
     using System.Web.UI;
     using DotNetNuke.Abstractions;
+    using DotNetNuke.Abstractions.Logging;
+    using DotNetNuke.Abstractions.Portals;
     using DotNetNuke.Common.Utilities;
     using DotNetNuke.Entities.Portals;
     using DotNetNuke.Entities.Users;
@@ -56,10 +59,12 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(Login));
         private readonly INavigationManager _navigationManager;
         protected int CounterValue = 0;
+        private readonly IEventLogger _eventLogger;
 
         public Login()
         {
             this._navigationManager = this.DependencyProvider.GetRequiredService<INavigationManager>();
+            _eventLogger = DependencyProvider.GetRequiredService<IEventLogger>();
         }
 
         /// <summary>
@@ -194,8 +199,9 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                         {
                             if (redirectTabId > 0)
                             {
+                                var httpAlias = ((IPortalAliasInfo)this.PortalSettings.PortalAlias).HttpAlias;
                                 var redirectUrl = this._navigationManager.NavigateURL(redirectTabId, string.Empty, "VerificationSuccess=true");
-                                redirectUrl = redirectUrl.Replace(Globals.AddHTTP(this.PortalSettings.PortalAlias.HTTPAlias), string.Empty);
+                                redirectUrl = redirectUrl.Replace(Globals.AddHTTP(httpAlias), string.Empty);
                                 this.Response.Cookies.Add(new HttpCookie("returnurl", redirectUrl) { Path = !string.IsNullOrEmpty(Globals.ApplicationPath) ? Globals.ApplicationPath : "/" });
                             }
 
@@ -317,11 +323,8 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
             if ((this.UseCaptcha && this.ctlCaptcha.IsValid) || !this.UseCaptcha)
             {
                 var loginStatus = UserLoginStatus.LOGIN_FAILURE;
-                string userName = PortalSecurity.Instance.InputFilter(
-                    this.txtUsername.Text,
-                    PortalSecurity.FilterFlag.NoScripting |
-                                        PortalSecurity.FilterFlag.NoAngleBrackets |
-                                        PortalSecurity.FilterFlag.NoMarkup);
+                string userName = WebUtility.HtmlEncode(this.txtUsername.Text);
+                userName = userName.Replace("<", "").Replace(">", "");
 
                 // DNN-6093
                 // check if we use email address here rather than username
@@ -360,7 +363,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                                 // The verification code has expired for the user.
                                 // Log the login failure attempt and display an error message to the user.
                                 loginStatus = UserLoginStatus.LOGIN_FAILURE;
-                                EventLogController.Instance.AddLog("User Login - Expired Verification Code", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.LOGIN_FAILURE);
+                                _eventLogger.AddLog("User Login - Expired Verification Code", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogType.LOGIN_FAILURE);
                                 DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("ExpiredVerificationCode", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
                             }
                             else
@@ -369,9 +372,9 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                                 // Now, check if the verification code matches the user's actual account.
                                 if (UtilityMethods.ValidateUser(userName, this.txtPassword.Text))
                                 {
-                                    
+
                                     // Successful login, add log entry
-                                    EventLogController.Instance.AddLog("User Login - Successful", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.LOGIN_SUCCESS);
+                                    _eventLogger.AddLog("User Login - Successful", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogType.LOGIN_SUCCESS);
                                     if (objUser.IsSuperUser)
                                     {
                                         loginStatus = UserLoginStatus.LOGIN_SUPERUSER;
@@ -387,7 +390,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                                     // The verification code does not match the user's account.
                                     // Set the login status to indicate a login failure and display an error message.
                                     loginStatus = UserLoginStatus.LOGIN_FAILURE;
-                                    EventLogController.Instance.AddLog("User Login - Invalid Verification Code", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.LOGIN_FAILURE);
+                                    _eventLogger.AddLog("User Login - Invalid Verification Code", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogType.LOGIN_FAILURE);
                                     DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("InvalidVerificationCode", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
                                 }
                             }
@@ -448,13 +451,9 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
             this.valueNotifyMessageSpan.InnerText = Localization.GetString("NotifyMessage", this.LocalResourceFile);
             this.valueVerificationCodeMessageSpan.InnerText = Localization.GetString("VerificationCodeMessage", this.LocalResourceFile);
 
-            string userName = PortalSecurity.Instance.InputFilter(
-                 this.txtUsername.Text,
-                 PortalSecurity.FilterFlag.NoScripting |
-                                     PortalSecurity.FilterFlag.NoAngleBrackets |
-                                     PortalSecurity.FilterFlag.NoMarkup);
+            string userName = WebUtility.HtmlEncode(this.txtUsername.Text);
+            userName = userName.Replace("<", "").Replace(">", "");
 
-            
             // check if we use email address here rather than username
             UserInfo userByEmail = null;
             var emailUsedAsUsername = PortalController.GetPortalSettingAsBoolean("Registration_UseEmailAsUserName", this.PortalId, false);
@@ -566,12 +565,12 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                             {
                                 string valueTryMessageSpanS = $" {Localization.GetString("OneLeft", this.LocalResourceFile)}";
                                 valueTryMessageSpan.InnerText = $" ({Localization.GetString("OneLeft", this.LocalResourceFile)})";
-                                EventLogController.Instance.AddLog("Verification Code Request - Second Attempt", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
+                                _eventLogger.AddLog("Verification Code Request - Second Attempt", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogType.ADMIN_ALERT);
                             }
                             else
                             {
                                 valueTryMessageSpan.InnerText = $" ({Localization.GetString("TwoLeft", this.LocalResourceFile)})";
-                                EventLogController.Instance.AddLog("Verification Code Request - First Attempt", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
+                                _eventLogger.AddLog("Verification Code Request - First Attempt", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogType.ADMIN_ALERT);
                             }
                         }
 
@@ -581,7 +580,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                             valueMessageSpan.InnerText = $" {Localization.GetString("Minutes", this.LocalResourceFile)}.";
                             valueTimeSpan.InnerText = "1:00:00";
                             valueTryMessageSpan.InnerText = string.Empty;
-                            EventLogController.Instance.AddLog("Verification Code Request - Third Try", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
+                            _eventLogger.AddLog("Verification Code Request - Third Try", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogType.ADMIN_ALERT);
 
                         }
                         try
@@ -590,11 +589,11 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                             var ctlEmail = new Email();
                             var subject = Localization.GetString("Subject", this.LocalResourceFile); // no idea why, but this specific call requires explicitly specifying the resource file. 
                             ctlEmail.Send(emailAddress, code, subject);
-                            EventLogController.Instance.AddLog("Verification Code Send - Successful", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
+                            _eventLogger.AddLog("Verification Code Send - Successful", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogType.ADMIN_ALERT);
                         }
                         catch (Exception)
                         {
-                            EventLogController.Instance.AddLog("Verification Code Send - Failure", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.LOG_NOTIFICATION_FAILURE);
+                            _eventLogger.AddLog("Verification Code Send - Failure", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogType.LOG_NOTIFICATION_FAILURE);
                         }
                         DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("SendEmailVerificationCode", this.LocalResourceFile), ModuleMessage.ModuleMessageType.BlueInfo);
                     }
@@ -616,7 +615,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                     valueMessageSpan.InnerText = $" {Localization.GetString("Seconds")}.";
                     valueTryMessageSpan.InnerText = $" ({Localization.GetString("TwoLeft")})";
                     valueTimeSpan.InnerText = CounterValue.ToString();
-                    EventLogController.Instance.AddLog("Verification Code Request - First Attempt", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
+                    _eventLogger.AddLog("Verification Code Request - First Attempt", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogType.ADMIN_ALERT);
                     VerificationCodeRepository.Instance.CreateItem(data);
                     try
                     {
@@ -624,12 +623,12 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                         var ctlEmail = new Email();
                         var subject = Localization.GetString("Subject", this.LocalResourceFile); // no idea why, but this specific call requires explicitly specifying the resource file. 
                         ctlEmail.Send(emailAddress, code, subject);
-                        EventLogController.Instance.AddLog("Verification Code Send - Successful", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.ADMIN_ALERT);
+                        _eventLogger.AddLog("Verification Code Send - Successful", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogType.ADMIN_ALERT);
 
                     }
                     catch (Exception)
                     {
-                        EventLogController.Instance.AddLog("Verification Code Send - Failure", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogController.EventLogType.LOG_NOTIFICATION_FAILURE);
+                        _eventLogger.AddLog("Verification Code Send - Failure", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogType.LOG_NOTIFICATION_FAILURE);
                     }
 
                     DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("SendEmailVerificationCode", this.LocalResourceFile), ModuleMessage.ModuleMessageType.BlueInfo);

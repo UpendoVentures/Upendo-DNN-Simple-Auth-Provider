@@ -21,7 +21,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #endregion
 
-using DotNetNuke.Entities.Controllers;
 using DotNetNuke.Entities.Portals;
 using System.IO;
 using System.Web.Hosting;
@@ -31,11 +30,16 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
 {
     public class Email
     {
-        private string _logo; 
-        private string _body;
+        private IPortalController _portalController;
+        private string _logo;
         private string _verificationCode;
         private string _fromEmail;
         private string _toEmail;
+        
+        public Email(IPortalController portalController)
+        {
+            this._portalController = portalController;
+        }
 
         public void Send(string userEmail, string code, string subject)
         {
@@ -49,7 +53,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
             this._fromEmail = DnnGlobal.Instance.GetPortalEmail();
             this._toEmail = userEmail;
 
-            string valueSettings = PortalController.GetPortalSetting("UpendoSimpleDnnAuth.ConfirmEmail", DnnGlobal.Instance.GetPortalId(), string.Empty);
+            string valueSettings = PortalController.GetPortalSetting(_portalController, "UpendoSimpleDnnAuth.ConfirmEmail", DnnGlobal.Instance.GetPortalId(), string.Empty);
 
             string serverPath = HostingEnvironment.MapPath(valueSettings);
             var templateContent = File.ReadAllText(serverPath);

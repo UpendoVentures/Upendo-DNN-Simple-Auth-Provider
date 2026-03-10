@@ -35,16 +35,19 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
     public class AuthConfigBase: AuthenticationConfigBase
     {
         private const string _cacheKey = "Authentication";
+        private IPortalController _portalController;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OAuthConfigBase"/> class.
         /// </summary>
         /// <param name="service"></param>
         /// <param name="portalId"></param>
-        protected AuthConfigBase(string service, int portalId)
+        /// <param name="portalController"></param>
+        protected AuthConfigBase(string service, int portalId, IPortalController portalController)
             : base(portalId)
         {
             this.Service = service;
+            this._portalController = portalController;
 
             //if (this.HostConfig)
             //{
@@ -52,7 +55,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
             //}
             //else
             //{
-                this.Enabled = PortalController.GetPortalSettingAsBoolean(this.Service + "_Enabled", portalId, false);
+                this.Enabled = PortalController.GetPortalSettingAsBoolean(_portalController, this.Service + "_Enabled", portalId, false);
             //}
         }
 
@@ -67,13 +70,13 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
             DataCache.RemoveCache(GetCacheKey(service, portalId));
         }
 
-        public static AuthConfigBase GetConfig(string service, int portalId)
+        public static AuthConfigBase GetConfig(string service, int portalId, IPortalController portalController)
         {
             string key = GetCacheKey(service, portalId);
             var config = (AuthConfigBase)DataCache.GetCache(key);
             if (config == null)
             {
-                config = new AuthConfigBase(service, portalId);
+                config = new AuthConfigBase(service, portalId, portalController);
                 DataCache.SetCache(key, config);
             }
 
@@ -89,7 +92,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
             //}
             //else
             //{
-                PortalController.UpdatePortalSetting(config.PortalID, config.Service + "_Enabled", config.Enabled.ToString(CultureInfo.InvariantCulture));
+                PortalController.UpdatePortalSetting(config.PortalID, string.Concat(config.Service, "_Enabled"), config.Enabled.ToString(CultureInfo.InvariantCulture));
             //}
 
             ClearConfig(config.Service, config.PortalID);
@@ -97,7 +100,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
 
         private static string GetCacheKey(string service, int portalId)
         {
-            return _cacheKey + "." + service + "_" + portalId;
+            return string.Concat(_cacheKey, ".", service, "_", portalId);
         }
     }
 }

@@ -17,14 +17,12 @@ OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using DotNetNuke.Abstractions.ClientResources;
+
 namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 {
-    using System;
-    using System.Linq;
-    using System.Net;
-    using System.Web;
-    using System.Web.UI;
     using DotNetNuke.Abstractions;
+    using DotNetNuke.Abstractions.Application;
     using DotNetNuke.Abstractions.Logging;
     using DotNetNuke.Abstractions.Portals;
     using DotNetNuke.Common.Utilities;
@@ -34,12 +32,18 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
     using DotNetNuke.Security;
     using DotNetNuke.Security.Membership;
     using DotNetNuke.Services.Authentication;
+    using DotNetNuke.Services.ClientDependency;
     using DotNetNuke.Services.Exceptions;
     using DotNetNuke.Services.Localization;
     using DotNetNuke.Services.Log.EventLog;
     using DotNetNuke.UI.Skins.Controls;
     using DotNetNuke.Web.Client.ClientResourceManagement;
     using Microsoft.Extensions.DependencyInjection;
+    using System;
+    using System.Linq;
+    using System.Net;
+    using System.Web;
+    using System.Web.UI;
     using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components;
     using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Data;
     using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Data.Cryptography;
@@ -60,11 +64,19 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         private readonly INavigationManager _navigationManager;
         protected int CounterValue = 0;
         private readonly IEventLogger _eventLogger;
+        private readonly IClientResourceController _clientResourceController;
+        private readonly IPortalController _portalController;
+        private readonly IApplicationStatusInfo _appStatus;
+        private readonly IPortalGroupController _portalGroupController;
 
         public Login()
         {
             this._navigationManager = this.DependencyProvider.GetRequiredService<INavigationManager>();
             _eventLogger = DependencyProvider.GetRequiredService<IEventLogger>();
+            _clientResourceController = DependencyProvider.GetRequiredService<IClientResourceController>();
+            _portalController = DependencyProvider.GetRequiredService<IPortalController>();
+            _appStatus = DependencyProvider.GetRequiredService<IApplicationStatusInfo>();
+            _portalGroupController = DependencyProvider.GetRequiredService<IPortalGroupController>();
         }
 
         /// <summary>
@@ -94,7 +106,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         {
             base.OnInit(e);
 
-            ClientResourceManager.RegisterStyleSheet(((Control)this).Page, ControlPath + "module.css", 100);
+            _clientResourceController.RegisterStylesheet(ControlPath + "module.css", FileOrder.Css.ModuleCss);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -156,7 +168,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                 this.registerLink.Visible = false;
             }
 
-            // see if the portal supports persistant cookies
+            // see if the portal supports persistent cookies
             this.chkCookie.Visible = Host.RememberCheckbox;
 
             // no need to show password link if feature is disabled, let's check this first
@@ -269,7 +281,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                 useEmailAsUserName = !registrationFields.Contains("Username");
             }
 
-            this.plUsername.Text = this.LocalizeString(useEmailAsUserName ? "Email" : "Username");
+            this.plUsername.Text = this.LocalizeText(useEmailAsUserName ? "Email" : "Username");
             this.divCaptcha1.Visible = this.UseCaptcha;
             this.divCaptcha2.Visible = this.UseCaptcha;
         }
@@ -324,17 +336,17 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
             {
                 var loginStatus = UserLoginStatus.LOGIN_FAILURE;
                 string userName = WebUtility.HtmlEncode(this.txtUsername.Text);
-                userName = userName.Replace("<", "").Replace(">", "");
+                userName = userName.Replace("<", string.Empty).Replace(">", string.Empty);
 
                 // DNN-6093
                 // check if we use email address here rather than username
                 UserInfo userByEmail = null;
-                var emailUsedAsUsername = PortalController.GetPortalSettingAsBoolean("Registration_UseEmailAsUserName", this.PortalId, false);
+                var emailUsedAsUsername = PortalController.GetPortalSettingAsBoolean(_portalController, "Registration_UseEmailAsUserName", this.PortalId, false);
 
                 if (emailUsedAsUsername)
                 {
                     // one additonal call to db to see if an account with that email actually exists
-                    userByEmail = UserController.GetUserByEmail(PortalController.GetEffectivePortalId(this.PortalId), userName);
+                    userByEmail = UserController.GetUserByEmail(PortalController.GetEffectivePortalId(_portalController, _appStatus, _portalGroupController, this.PortalId), userName);
 
                     if (userByEmail != null)
                     {
@@ -456,12 +468,12 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 
             // check if we use email address here rather than username
             UserInfo userByEmail = null;
-            var emailUsedAsUsername = PortalController.GetPortalSettingAsBoolean("Registration_UseEmailAsUserName", this.PortalId, false);
+            var emailUsedAsUsername = PortalController.GetPortalSettingAsBoolean(_portalController, "Registration_UseEmailAsUserName", this.PortalId, false);
 
             if (emailUsedAsUsername)
             {
                 // one additonal call to db to see if an account with that email actually exists
-                userByEmail = UserController.GetUserByEmail(PortalController.GetEffectivePortalId(this.PortalId), userName);
+                userByEmail = UserController.GetUserByEmail(PortalController.GetEffectivePortalId(_portalController, _appStatus, _portalGroupController, this.PortalId), userName);
 
                 if (userByEmail != null)
                 {
@@ -586,7 +598,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                         try
                         {
                             // Send the new verification code to the user's email
-                            var ctlEmail = new Email();
+                            var ctlEmail = new Email(_portalController);
                             var subject = Localization.GetString("Subject", this.LocalResourceFile); // no idea why, but this specific call requires explicitly specifying the resource file. 
                             ctlEmail.Send(emailAddress, code, subject);
                             _eventLogger.AddLog("Verification Code Send - Successful", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogType.ADMIN_ALERT);
@@ -620,7 +632,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                     try
                     {
                         // Send the new verification code to the user's email
-                        var ctlEmail = new Email();
+                        var ctlEmail = new Email(_portalController);
                         var subject = Localization.GetString("Subject", this.LocalResourceFile); // no idea why, but this specific call requires explicitly specifying the resource file. 
                         ctlEmail.Send(emailAddress, code, subject);
                         _eventLogger.AddLog("Verification Code Send - Successful", "Username: " + userName, PortalController.Instance.GetCurrentSettings(), objUser.UserID, EventLogType.ADMIN_ALERT);
@@ -650,7 +662,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
             try
             {
                 var portalSettings = PortalSettings.Current;
-                string templatePath = PortalController.GetPortalSetting(LoginConst.UPENDO_SIMPLE_DNN_AUTH_CONFIRM_EMAIL, portalSettings.PortalId, string.Empty);
+                string templatePath = PortalController.GetPortalSetting(_portalController, LoginConst.UPENDO_SIMPLE_DNN_AUTH_CONFIRM_EMAIL, portalSettings.PortalId, string.Empty);
 
                 if (string.IsNullOrEmpty(templatePath))
                 {

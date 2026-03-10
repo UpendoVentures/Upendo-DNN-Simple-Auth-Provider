@@ -17,19 +17,27 @@ OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+using DotNetNuke.Entities.Portals;
+
 namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 {
-    using System;
-
     using DotNetNuke.Services.Authentication;
     using DotNetNuke.Services.Exceptions;
+    using System;
     using UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components;
 
     public partial class Settings : AuthenticationSettingsBase
     {
+        private IPortalController _portalController;
+        
         protected string AuthSystemApplicationName
         {
             get { return Const.AUTH_SYSTEM_TYPE; }
+        }
+
+        public Settings(IPortalController portalController)
+        {
+            _portalController = portalController;
         }
 
         public override void UpdateSettings()
@@ -60,7 +68,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 
             try
             {
-                AuthConfigBase config = AuthConfigBase.GetConfig(AuthSystemApplicationName, this.PortalId);
+                AuthConfigBase config = AuthConfigBase.GetConfig(AuthSystemApplicationName, this.PortalId, _portalController);
                 this.SettingsEditor.DataSource = config;
                 this.SettingsEditor.DataBind();
             }

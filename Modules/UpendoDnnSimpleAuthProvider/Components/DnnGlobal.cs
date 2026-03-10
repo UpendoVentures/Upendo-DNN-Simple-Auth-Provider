@@ -88,8 +88,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
 
             public PortalInfo GetCurrentPortal()
             {
-                var controller = new PortalController();
-                return controller.GetPortal(GetPortalId());
+                return PortalController.Instance.GetPortal(GetPortalId());
             }
 
             public PortalSettings GetCurrentPortalSettings()

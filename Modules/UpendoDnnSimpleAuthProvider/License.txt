@@ -3,7 +3,7 @@
 	div.uv-install-wrapper ul { padding-left: 2em; }
 </style>
 <div class="uv-install-wrapper">
-	<p>Upendo <a href="https://upendoventures.com" target="_blank">https://upendoventures.com</a></p>
+	<p>Upendo Ventures, LLC <a href="https://upendoventures.com" target="_blank">https://upendoventures.com</a></p>
 	
 	<p>Copyright Upendo Ventures, LLC</p>
 

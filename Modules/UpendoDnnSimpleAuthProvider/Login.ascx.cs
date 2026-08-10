@@ -18,6 +18,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 using DotNetNuke.Abstractions.ClientResources;
+using DotNetNuke.Web.Client;
 
 namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 {
@@ -106,7 +107,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         {
             base.OnInit(e);
 
-            _clientResourceController.RegisterStylesheet(ControlPath + "module.css", FileOrder.Css.ModuleCss);
+            _clientResourceController.RegisterStylesheet(ControlPath + "module.css", DotNetNuke.Abstractions.ClientResources.FileOrder.Css.ModuleCss);
         }
 
         protected override void OnLoad(EventArgs e)

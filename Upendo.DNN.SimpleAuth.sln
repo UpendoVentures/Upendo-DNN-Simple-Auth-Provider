@@ -33,6 +33,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Viewsets", "Viewsets", "{C5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpendoVentures.Auth.UpendoDnnSimpleAuthProvider", "Modules\UpendoDnnSimpleAuthProvider\UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.csproj", "{F38696C5-85BA-4A8B-A40B-B7E1DC8A42D0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Upendo.LocalDevelopmentMcp", "Tools\Upendo.LocalDevelopmentMcp\Upendo.LocalDevelopmentMcp.csproj", "{4B6D8FBD-E72A-6C9B-5F0C-3576C9FC22AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,12 +47,15 @@ Global
 		{F38696C5-85BA-4A8B-A40B-B7E1DC8A42D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F38696C5-85BA-4A8B-A40B-B7E1DC8A42D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F38696C5-85BA-4A8B-A40B-B7E1DC8A42D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B6D8FBD-E72A-6C9B-5F0C-3576C9FC22AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B6D8FBD-E72A-6C9B-5F0C-3576C9FC22AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F38696C5-85BA-4A8B-A40B-B7E1DC8A42D0} = {70FB7EDF-2E12-405F-B9CD-8A437E96FB11}
+		{4B6D8FBD-E72A-6C9B-5F0C-3576C9FC22AF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82de86a5-d6ed-4b85-84f4-241dd1864012}

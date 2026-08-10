@@ -465,7 +465,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
             this.valueNotifyMessageSpan.InnerText = Localization.GetString("NotifyMessage", this.LocalResourceFile);
             this.valueVerificationCodeMessageSpan.InnerText = Localization.GetString("VerificationCodeMessage", this.LocalResourceFile);
 
-            string userName = WebUtility.HtmlEncode(this.txtUsername.Text);
+            string userName = WebUtility.HtmlEncode(this.txtUsername.Text.Trim().ToLower());
             userName = userName.Replace("<", "").Replace(">", "");
 
             // check if we use email address here rather than username

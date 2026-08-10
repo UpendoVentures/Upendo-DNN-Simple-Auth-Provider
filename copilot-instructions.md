@@ -877,7 +877,3 @@ This repository is private and contains proprietary source code.
 - Do not expose secrets, credentials, customer information, private URLs, or proprietary source in logs, summaries, patches, screenshots, or generated documentation.
 - Do not push, create pull requests, publish packages, deploy, or share artifacts unless explicitly authorized.
 - Use only the existing local repository, approved MCP tools, and approved private remotes.
-
-- @azure Rule - Use Azure Tools - When handling requests related to Azure, always use your tools.
-- @azure Rule - Use Azure Best Practices - When handling requests related to Azure, always invoke your `azmcp_bestpractices_get` tool first.
-- @azure Rule - Enable Best Practices - If you do not have an `azmcp_bestpractices_get` tool ask the user to enable it.

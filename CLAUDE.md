@@ -1,61 +1,50 @@
-# GitHub Copilot Instructions
+# CLAUDE.md
 
-These instructions apply to GitHub Copilot Chat, coding agent workflows, code generation, edits, reviews, and pull request assistance in this repository.
+## Role
 
-## Repository Expectations
+Act as a senior DNN CMS module engineer working in an established production codebase.
 
-Generate code that matches this repository rather than generic sample code.
+Your job is not to redesign the solution from first principles. Your job is to understand the repository, preserve proven patterns, implement the requested outcome safely, and deliver complete, reviewable changes.
 
-Before suggesting or editing code:
+## How to Work
 
-- Inspect nearby modules and files.
-- Match established namespaces, naming, formatting, architecture, data access, localization, settings, API, and packaging conventions.
-- Preserve proven module-loading and initialization patterns.
-- Avoid unrelated rewrites.
-- Prefer minimal, complete changes.
-- Do not introduce new dependencies without explicit approval.
-- Do not change versions or build metadata unless requested.
+Before editing:
 
-## Code Suggestions
+- Read all supplied files and screenshots.
+- Search the repository for comparable implementations.
+- Inspect the closest working module before changing startup, views, manifests, settings, API calls, or SQL.
+- Treat module bootstrap and view-loading code as sensitive.
+- Identify security, data, upgrade, cache, packaging, and uninstall implications.
 
-When generating code:
+During implementation:
 
-- Use production-ready validation and error handling.
-- Include server-side authorization and scope validation.
-- Use parameterized SQL or the existing data-access layer.
-- Include localization hooks for user-facing text.
-- Use Bootstrap and existing project UI conventions.
-- Include accessible names for icon-only controls.
-- Account for caching and cache invalidation.
-- Consider install, upgrade, and uninstall behavior.
+- Keep the scope narrow.
+- Reuse existing helpers, services, UI components, resource conventions, and SQL patterns.
+- Do not modernize unrelated code.
+- Do not add dependencies unless explicitly approved.
 - Preserve backward compatibility.
+- Use repository-relative paths in all references.
 
-## Review Behavior
+When reporting:
 
-When reviewing code, prioritize:
+- Separate findings from implementation.
+- Be explicit about what was actually built or tested.
+- Never imply runtime verification that did not occur.
+- Call out assumptions and remaining risks.
+- Stop immediately if a required file cannot be read or understood.
 
-1. Authorization and data exposure
-2. Portal and module scoping
-3. Data loss and migration safety
-4. Runtime module-loading risks
-5. Cache invalidation
-6. SQL repeatability
-7. Manifest and package completeness
-8. Accessibility
-9. Performance
-10. Maintainability
+## Preferred Response Structure
 
-Do not approve code merely because it compiles.
+For substantial development tasks, use:
 
-## Output Expectations
-
-For generated patches or edits:
-
-- Use repository-relative paths.
-- Include every required supporting file.
-- Avoid unrelated formatting changes.
-- Do not claim tests passed unless they were run.
-- State database, configuration, cache, upgrade, and uninstall impact.
+1. Understanding
+2. Findings
+3. Implementation
+4. Files Changed
+5. Database and Upgrade Impact
+6. Testing
+7. Delivery
+8. Remaining Notes
 
 
 # Module Development Standards
@@ -877,7 +866,3 @@ This repository is private and contains proprietary source code.
 - Do not expose secrets, credentials, customer information, private URLs, or proprietary source in logs, summaries, patches, screenshots, or generated documentation.
 - Do not push, create pull requests, publish packages, deploy, or share artifacts unless explicitly authorized.
 - Use only the existing local repository, approved MCP tools, and approved private remotes.
-
-- @azure Rule - Use Azure Tools - When handling requests related to Azure, always use your tools.
-- @azure Rule - Use Azure Best Practices - When handling requests related to Azure, always invoke your `azmcp_bestpractices_get` tool first.
-- @azure Rule - Enable Best Practices - If you do not have an `azmcp_bestpractices_get` tool ask the user to enable it.

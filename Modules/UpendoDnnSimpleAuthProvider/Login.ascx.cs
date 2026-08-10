@@ -18,6 +18,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 using DotNetNuke.Abstractions.ClientResources;
+using DotNetNuke.Web.Client;
 
 namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 {
@@ -106,7 +107,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         {
             base.OnInit(e);
 
-            _clientResourceController.RegisterStylesheet(ControlPath + "module.css", FileOrder.Css.ModuleCss);
+            _clientResourceController.RegisterStylesheet(ControlPath + "module.css", DotNetNuke.Abstractions.ClientResources.FileOrder.Css.ModuleCss);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -325,6 +326,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 
             return redirectUrl;
         }
+        
         /// <summary>
         /// A detail to keep in mind. This method has been modified, the parameter that arrives in the txtPassword variable is really the Verification Code.
         /// </summary>
@@ -335,7 +337,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
             if ((this.UseCaptcha && this.ctlCaptcha.IsValid) || !this.UseCaptcha)
             {
                 var loginStatus = UserLoginStatus.LOGIN_FAILURE;
-                string userName = WebUtility.HtmlEncode(this.txtUsername.Text);
+                string userName = WebUtility.HtmlEncode(this.txtUsername.Text.Trim().ToLower());
                 userName = userName.Replace("<", string.Empty).Replace(">", string.Empty);
 
                 // DNN-6093

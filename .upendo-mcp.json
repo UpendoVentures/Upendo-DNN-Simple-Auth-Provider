@@ -1,0 +1,74 @@
+{
+  "Repository": {
+    "Root": ".",
+    "StandardsFiles": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      ".github/copilot-instructions.md"
+    ],
+    "AllowedRoots": [
+      ".github",
+      "Assets",
+      "Build",
+      "Libraries",
+      "Modules",
+      "References",
+      "SkinObjects",
+      "Tools",
+      "Website"
+    ],
+    "ExcludedGlobs": [
+      ".git/**",
+      "**/bin/**",
+      "**/obj/**",
+      "**/node_modules/**",
+      "**/packages/**",
+      "**/App_Data/**",
+      "**/.vs/**",
+      "**/.vscode/**",
+      "**/vscode/**"
+    ],
+    "MaximumReadBytes": 1048576,
+    "MaximumSearchResults": 200,
+    "GitProcessTimeoutSeconds": 30,
+    "BuildProcessTimeoutSeconds": 900,
+    "Builds": [
+      {
+        "Name": "solution-release",
+        "Kind": "msbuild",
+        "WorkingDirectory": ".",
+        "Executable": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe",
+        "Arguments": [
+          "Upendo.DNN.SimpleAuth.sln",
+          "/restore",
+          "/m",
+          "/p:Configuration=Release"
+        ]
+      },
+      {
+        "Name": "upendo-simple-auth",
+        "Kind": "msbuild",
+        "WorkingDirectory": ".",
+        "Executable": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe",
+        "Arguments": [
+          "Modules/UpendoDnnSimpleAuthProvider/UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.csproj",
+          "/restore",
+          "/m",
+          "/p:Configuration=Release"
+        ]
+      },
+      {
+        "Name": "local-development-mcp",
+        "Kind": "dotnet",
+        "WorkingDirectory": ".",
+        "Executable": "dotnet.exe",
+        "Arguments": [
+          "build",
+          "Tools/Upendo.LocalDevelopmentMcp/Upendo.LocalDevelopmentMcp.csproj",
+          "--configuration",
+          "Release"
+        ]
+      }
+    ]
+  }
+}

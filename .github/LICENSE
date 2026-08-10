@@ -1,0 +1,113 @@
+# Upendo Ventures Proprietary Software License
+
+Copyright © 2026 Upendo Ventures, LLC. All rights reserved.
+
+## 1. Proprietary and confidential material
+
+This repository and all software, source code, object code, database scripts, documentation, specifications, designs, images, configuration files, build artifacts, and other materials contained in or distributed from it (collectively, the **“Software”**) are proprietary and confidential to Upendo Ventures, LLC (**“Upendo Ventures”**) or its licensors.
+
+The Software is not open-source software. Access to the Software does not grant any ownership interest or license except as expressly stated in this notice or in a separate written agreement signed by Upendo Ventures.
+
+## 2. Authorized use
+
+Upendo Ventures authorizes its employees and approved contractors to access, use, copy, and modify the Software solely:
+
+- To perform work for or on behalf of Upendo Ventures;
+- Within systems and repositories approved by Upendo Ventures;
+- In accordance with applicable employment, contractor, confidentiality, security, and intellectual-property agreements; and
+- For the specific business or development purpose for which access was granted.
+
+Customers, partners, vendors, and other third parties may use the Software only to the extent expressly permitted by a separate written agreement with Upendo Ventures.
+
+No customer license, deployment, purchase, statement of work, or access to compiled Software grants access to or rights in the source code unless a written agreement expressly provides otherwise.
+
+## 3. Restrictions
+
+Except when expressly authorized in writing by Upendo Ventures, no person or entity may:
+
+- Copy, reproduce, modify, translate, adapt, or create derivative works from the Software;
+- Publish, distribute, transmit, sublicense, sell, lease, assign, transfer, or otherwise make the Software available to another party;
+- Disclose source code or confidential technical information to an unauthorized person;
+- Upload or mirror the Software in a public repository, public package registry, public file-sharing service, or other publicly accessible location;
+- Use the Software outside the organization, project, customer engagement, or environment for which access was granted;
+- Reverse engineer, decompile, disassemble, or attempt to derive source code from compiled portions of the Software, except where applicable law expressly prohibits that restriction;
+- Remove, alter, conceal, or replace any copyright, trademark, attribution, confidentiality, or proprietary notice; or
+- Use Upendo Ventures’ names, trademarks, service marks, or branding without prior written permission.
+
+## 4. Protection of the Software
+
+Anyone with access to the Software must use reasonable administrative, physical, and technical safeguards to prevent unauthorized access, copying, disclosure, alteration, or distribution.
+
+Access must be limited to individuals who have a legitimate need to use the Software and who are bound by appropriate confidentiality and intellectual-property obligations.
+
+Any suspected loss, unauthorized access, public exposure, or improper distribution must be reported promptly to Upendo Ventures.
+
+## 5. Contributions and modifications
+
+Any contribution, modification, patch, pull request, documentation update, or other work submitted to this repository is governed by the contributor’s applicable employment, contractor, confidentiality, intellectual-property, or contribution agreement with Upendo Ventures.
+
+Submitting material to the repository does not change the proprietary status of the Software or create a right to distribute it.
+
+Contributors must not submit material that:
+
+- They do not have the right to provide;
+- Is subject to incompatible license terms;
+- Contains confidential information belonging to another party;
+- Contains customer data, credentials, secrets, or production configuration; or
+- Would require Upendo Ventures to disclose or license proprietary source code under terms not previously approved in writing.
+
+## 6. Third-party components
+
+The Software may incorporate or depend upon DNN Platform, .NET packages, npm packages, libraries, fonts, frameworks, or other third-party materials.
+
+Third-party materials remain subject to their respective copyright notices and license terms. This proprietary license does not replace, restrict, or expand rights granted under an applicable third-party license.
+
+The presence of a third-party component does not place Upendo Ventures’ original Software under that component’s license except where the applicable license legally requires otherwise.
+
+## 7. Ownership
+
+As between Upendo Ventures and an authorized user, Upendo Ventures and its licensors retain all rights, title, and interest in and to the Software, including all copyrights, trade secrets, trademarks, patent rights, and other intellectual-property rights.
+
+No rights are granted by implication, estoppel, exhaustion, or otherwise. All rights not expressly granted are reserved.
+
+## 8. No warranty
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE SOFTWARE IS PROVIDED **“AS IS”** AND **“AS AVAILABLE,”** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE.
+
+UPENDO VENTURES DISCLAIMS ALL IMPLIED WARRANTIES AND CONDITIONS, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, ACCURACY, RELIABILITY, AND QUIET ENJOYMENT.
+
+No oral or written statement creates a warranty unless it appears in a separate written agreement signed by Upendo Ventures.
+
+## 9. Limitation of liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, UPENDO VENTURES, ITS AFFILIATES, AND THEIR RESPECTIVE OWNERS, OFFICERS, EMPLOYEES, CONTRACTORS, AND LICENSORS WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR FOR ANY LOSS OF PROFITS, REVENUE, BUSINESS, DATA, GOODWILL, OR USE, ARISING FROM OR RELATED TO THE SOFTWARE.
+
+ANY LIABILITY THAT CANNOT LAWFULLY BE EXCLUDED OR LIMITED UNDER THIS NOTICE WILL BE GOVERNED BY THE APPLICABLE WRITTEN AGREEMENT BETWEEN UPENDO VENTURES AND THE AUTHORIZED USER.
+
+## 10. Termination of access
+
+Authorization to access or use the Software ends immediately when:
+
+- Upendo Ventures revokes that authorization;
+- The applicable employment, contractor, customer, or partner relationship ends;
+- An applicable written agreement expires or terminates; or
+- The authorized user violates this notice or an applicable agreement.
+
+Upon termination, the user must stop using the Software and, when requested, return or securely destroy all copies under the user’s possession or control, except where retention is required by law or expressly authorized in writing.
+
+Obligations concerning confidentiality, ownership, restrictions, disclaimers, and limitations of liability survive termination.
+
+## 11. Separate agreements
+
+If a signed written agreement with Upendo Ventures conflicts with this notice, the signed agreement controls only to the extent of that conflict and only for the parties and Software covered by that agreement.
+
+Module-specific or third-party license files continue to govern the materials to which they expressly apply.
+
+## 12. Questions and permissions
+
+Requests for licensing, distribution, source access, or other permissions should be directed to:
+
+**Upendo Ventures, LLC**  
+[solutions@upendoventures.com](mailto:solutions@upendoventures.com)
+
+Permission is valid only when granted in writing by an authorized representative of Upendo Ventures.

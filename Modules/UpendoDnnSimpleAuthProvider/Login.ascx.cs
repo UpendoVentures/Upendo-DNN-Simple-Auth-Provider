@@ -323,7 +323,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
             if ((this.UseCaptcha && this.ctlCaptcha.IsValid) || !this.UseCaptcha)
             {
                 var loginStatus = UserLoginStatus.LOGIN_FAILURE;
-                string userName = WebUtility.HtmlEncode(this.txtUsername.Text);
+                string userName = WebUtility.HtmlEncode(this.txtUsername.Text.Trim().ToLower());
                 userName = userName.Replace("<", "").Replace(">", "");
 
                 // DNN-6093

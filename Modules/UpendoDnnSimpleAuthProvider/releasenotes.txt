@@ -34,10 +34,21 @@
 
 		<h2>Release Notes</h2>
 
+		<h3>Version 01.03.00</h3>
+		<h4>Enhancements</h4>
+		<ul>
+			<li>Improved provider initialization and portal-scoped settings handling to reduce conflicts when multiple portals are configured. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/78" target="_blank">Issue 78</a>). Thanks, <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!</li>
+		</ul>
+		<h4>Maintenence &amp Bug Fixes</h4>
+		<ul>
+			<li>Fixed intermittent authentication failures and improved diagnostic logging to simplify troubleshooting under high load. (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/78" target="_blank">Issue 78</a>). Thanks, <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!</li>
+		</ul>
+		<hr />
+
 		<h3>Version 01.02.00</h3>
 		<h4>Enhancements</h4>
 		<ul>
-			<li>Raised Minimum DNN Support to 10.2 (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/72" target="_blank">Issue 72</a>, thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
+			<li>Raised Minimum DNN Support to 10.2 (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/72" target="_blank">Issue 72</a>. Thanks <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!)</li>
 			<!--
 			<li>SI:  (<a href="https://github.com/UpendoVentures/Upendo-DNN-Simple-Auth-Provider/issues/" target="_blank">Issue </a>, thanks <a href="https://github.com/" target="_blank">@</a>!)</li>
 			<li>None at this time.</li>

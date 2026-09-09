@@ -12,29 +12,45 @@
             <asp:Label ID="plUsername" AssociatedControlID="txtUsername" runat="server" CssClass="dnnFormLabel" />
         </div>
         <asp:TextBox ID="txtUsername" runat="server" placeholder="Username" ValidationGroup="Upendo" ClientIDMode="Static" />
+        <span></span>
+        <asp:RequiredFieldValidator
+            ID="rfvTxtUsername"
+            runat="server"
+            ControlToValidate="txtUsername"
+            ValidationGroup="Upendo"
+            Display="Dynamic"
+            CssClass="text-danger" />
     </div>
 
 
-        <div id="msgCounter" class="dnnFormItem hidden" clientidmode="Static" aria-live="polite">
-        <p>
+    <div id="msgCounter" class="hidden" clientidmode="Static" aria-live="polite">
+        <div class="alert alert-warning" role="alert">
             <span id="valueNotifyMessageSpan" runat="server" clientidmode="Static"></span>
-            <strong><span id="valueTimeSpan" runat="server" clientidmode="Static"></span></strong>
+            <strong><span id="valueTimeSpan" runat="server" class="fw-bold" clientidmode="Static"></span></strong>
             <span id="valueMessageSpan" runat="server" clientidmode="Static"></span>
             <span id="valueTryMessageSpan" runat="server" clientidmode="Static"></span>
-        </p>
+        </div>
     </div>
 
     <div id="dnnFormItemSendButton" class="dnnFormItem">
         <div class="dnnLabel"></div>
         <asp:LinkButton ID="btnSendEmailDisabled" runat="server" Text="Send Code" CssClass="" Enabled="false" ValidationGroup="Upendo" ClientIDMode="Static" />
-        <asp:LinkButton ID="btnSendEmail" runat="server" Text="Send Code" CssClass="" OnClick="btnSendEmail_Click" ValidationGroup="Upendo" ClientIDMode="Static" />
+        <asp:LinkButton ID="btnSendEmail" runat="server" Text="Send Code" CssClass="" OnClick="btnSendEmail_Click" ValidationGroup="Upendo" CausesValidation="True" ClientIDMode="Static" />
     </div>
 
     <div class="dnnFormItem">
         <div class="dnnLabel">
             <asp:Label ID="plPassword" AssociatedControlID="txtPassword" runat="server" resourcekey="Passwords" CssClass="dnnFormLabel" ViewStateMode="Disabled"><span id="valueVerificationCodeMessageSpan" runat="server"></span></asp:Label>
         </div>
-        <asp:TextBox ID="txtPassword" runat="server" placeholder="Code Verification" ClientIDMode="Static" />
+        <asp:TextBox ID="txtPassword" runat="server" placeholder="Code Verification" ValidationGroup="Upendo" ClientIDMode="Static" />
+        <span></span>
+        <asp:RequiredFieldValidator
+            ID="rfvPassword"
+            runat="server"
+            ControlToValidate="txtPassword"
+            ValidationGroup="Upendo"
+            Display="Dynamic"
+            CssClass="text-danger" />
     </div>
 
     <div class="dnnFormItem" id="divCaptcha1" runat="server" visible="false">
@@ -50,7 +66,7 @@
     </div>
     <div class="dnnFormItem">
         <asp:Label ID="lblLogin" runat="server" AssociatedControlID="cmdLogin" CssClass="dnnFormLabel" ViewStateMode="Disabled" ValidationGroup="Upendo" />
-        <asp:LinkButton ID="cmdLogin" resourcekey="cmdLogin" CssClass="dnnPrimaryAction" Text="Login" runat="server" CausesValidation="false" ValidationGroup="Upendo" />
+        <asp:LinkButton ID="cmdLogin" resourcekey="cmdLogin" CssClass="dnnPrimaryAction" Text="Login" runat="server" CausesValidation="true" ValidationGroup="Upendo" />
         <asp:HyperLink ID="cancelLink" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" CausesValidation="false" ValidationGroup="Upendo" />
     </div>
     <div class="dnnFormItem hidden">
@@ -64,8 +80,6 @@
             </ul>
         </div>
     </div>
-    <asp:HiddenField ID="moodleRestUrl" runat="server" />
-    <asp:HiddenField ID="moodleWantsUrl" runat="server" />
 </div>
 
 <dnn:dnnscriptblock runat="server">

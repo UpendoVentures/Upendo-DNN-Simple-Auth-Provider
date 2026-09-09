@@ -128,6 +128,8 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
             this.lblLogin.Text = Localization.GetSystemMessage(this.PortalSettings, "MESSAGE_LOGIN_INSTRUCTIONS");
             this.LoginHeader.InnerText = Localization.GetString("LoginHeader", this.LocalResourceFile);
             this.valueVerificationCodeMessageSpan.InnerText = Localization.GetString("VerificationCodeMessage", this.LocalResourceFile);
+            this.rfvTxtUsername.ErrorMessage = Localization.GetString("UsernameRequired", this.LocalResourceFile);
+            this.rfvPassword.ErrorMessage = Localization.GetString("RequiredVerificationCode", this.LocalResourceFile);
 
             if (string.IsNullOrEmpty(this.lblLogin.Text))
             {
@@ -456,6 +458,13 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         /// <param name="e"></param>
         protected void btnSendEmail_Click(object sender, EventArgs e)
         {
+            // Prefer framework validation state first
+            if (!Page.IsValid)
+            {
+                DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("UsernameRequired", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
+                return;
+            }
+
             this.valueNotifyMessageSpan.InnerText = Localization.GetString("NotifyMessage", this.LocalResourceFile);
             this.valueVerificationCodeMessageSpan.InnerText = Localization.GetString("VerificationCodeMessage", this.LocalResourceFile);
 

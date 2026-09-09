@@ -23,8 +23,8 @@
 		<h2>Contributors</h2>
 		<p>THANK YOU to the following community members for participating in this release!</p>
 		<ul>
-			<li>Will Strohl, <a href="https://upendoventures.com/How/People/Will-Strohl" target="_blank">Upendo Ventures</a></li>
-		</ul>
+			<li><a href="https://upendoventures.com/how/people/will-strohl" target="_blank">Will Strohl</a>, <a href="https://runsonupendo.com/" target="_blank">runsonUpendo</a></li> 
+		</ul> 
 	
 		<h2><strong>Release Note Prefixes</strong></h2>
 		<p>The following prefixes are defined as:</p>
@@ -37,12 +37,14 @@
 		<h3>Version 01.04.00</h3>
 		<h4>Enhancements</h4>
 		<ul>
-			<li>DNN 9 &amp; 10 Support: Split the authentication provider into DNN 9 &amp; 10 release packages. (no issue) Thanks, <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!</li>
-		</ul>
-		<h4>Maintenence &amp Bug Fixes</h4>
-		<ul>
-			<li>Resolves client-side display issues with the countdown timer. (no issue)</li>
-		</ul>
+			<li><strong>DNN 9 &amp; 10 Support:<strong> Split the authentication provider into separate DNN 9.13+ &amp; 10.2+ release packages. (no issue) Thanks, <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!</li> 
+			<li>Improved the display of the verification code message. (no issue) Thanks, <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!</li> 
+		</ul> 
+		<h4>Maintenence &amp Bug Fixes</h4> 
+		<ul> 
+			<li>Removed intermitten `NaN` display issue. (no issue) Thanks, <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!</li> 
+			<li>Removed legacy hidden field used for a client Moodle integration. (no issue) Thanks, <a href="https://github.com/WillStrohl" target="_blank">@WillStrohl</a>!</li> 
+		</ul> 
 		<hr />
 
 		<h3>Version 01.03.00</h3>

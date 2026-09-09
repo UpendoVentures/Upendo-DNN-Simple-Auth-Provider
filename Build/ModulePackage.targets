@@ -84,7 +84,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     <ItemGroup>
       <InstallInclude Include="**\*.ascx" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
-      <InstallInclude Include="**\*.asmx" Exclude="packages\**;node_modules\**;clientApp\**;client-app\*;.vs\**" />
+      <InstallInclude Include="**\*.asmx" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.css" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.html" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.htm" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />

@@ -12,6 +12,14 @@
             <asp:Label ID="plUsername" AssociatedControlID="txtUsername" runat="server" CssClass="dnnFormLabel" />
         </div>
         <asp:TextBox ID="txtUsername" runat="server" placeholder="Username" ValidationGroup="Upendo" ClientIDMode="Static" />
+        <span></span>
+        <asp:RequiredFieldValidator
+            ID="rfvTxtUsername"
+            runat="server"
+            ControlToValidate="txtUsername"
+            ValidationGroup="Upendo"
+            Display="Dynamic"
+            CssClass="text-danger" />
     </div>
 
 
@@ -35,6 +43,14 @@
             <asp:Label ID="plPassword" AssociatedControlID="txtPassword" runat="server" resourcekey="Passwords" CssClass="dnnFormLabel" ViewStateMode="Disabled"><span id="valueVerificationCodeMessageSpan" runat="server"></span></asp:Label>
         </div>
         <asp:TextBox ID="txtPassword" runat="server" placeholder="Code Verification" ClientIDMode="Static" />
+        <span></span>
+        <asp:RequiredFieldValidator
+            ID="rfvPassword"
+            runat="server"
+            ControlToValidate="txtPassword"
+            ValidationGroup="Upendo"
+            Display="Dynamic"
+            CssClass="text-danger" />
     </div>
 
     <div class="dnnFormItem" id="divCaptcha1" runat="server" visible="false">
@@ -64,8 +80,6 @@
             </ul>
         </div>
     </div>
-    <asp:HiddenField ID="moodleRestUrl" runat="server" />
-    <asp:HiddenField ID="moodleWantsUrl" runat="server" />
 </div>
 
 <dnn:dnnscriptblock runat="server">

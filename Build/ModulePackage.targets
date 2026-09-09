@@ -101,7 +101,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       <InstallInclude Include="**\*.woff2" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.swf" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.ico" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
-      <InstallInclude Include="**\*.json" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;obj\**;.angular\**;.vs\**" />
+      <InstallInclude Include="**\*.json" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**;obj\**;.angular\**" />
       <InstallInclude Include="**\*.scss" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.cshtml" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.png" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />

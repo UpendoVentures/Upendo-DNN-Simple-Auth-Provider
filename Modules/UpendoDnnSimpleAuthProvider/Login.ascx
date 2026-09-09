@@ -5,41 +5,43 @@
 
 <div class="pwLogin dnnForm dnnLoginService dnnClear">
 
-    <div id="LoginHeader" class="dnnFormMessage dnnFormWarning text-center" runat="server">
-  
-    </div>
+    <div id="LoginHeader" class="dnnFormMessage dnnFormWarning text-center" runat="server"></div>
 
     <div class="dnnFormItem">
         <div class="dnnLabel">
             <asp:Label ID="plUsername" AssociatedControlID="txtUsername" runat="server" CssClass="dnnFormLabel" />
         </div>
-        <asp:TextBox ID="txtUsername" runat="server" placeholder="Username" ValidationGroup="Upendo" ClientIDMode="Static"/>
+        <asp:TextBox ID="txtUsername" runat="server" placeholder="Username" ValidationGroup="Upendo" ClientIDMode="Static" />
     </div>
 
 
-    <div id="msgCounter" class="dnnFormItem hidden" style="padding-left: 20%;" ClientIDMode="Static">
-        <p><span id="valueNotifyMessageSpan" runat="server" ClientIDMode="Static"></span> <strong><span id="valueTimeSpan" runat="server" ClientIDMode="Static"></span></strong><span id="valueMessageSpan" runat="server" ClientIDMode="Static"></span><span id="valueTryMessageSpan" runat="server" ClientIDMode="Static"></span></p>
+        <div id="msgCounter" class="dnnFormItem hidden" clientidmode="Static" aria-live="polite">
+        <p>
+            <span id="valueNotifyMessageSpan" runat="server" clientidmode="Static"></span>
+            <strong><span id="valueTimeSpan" runat="server" clientidmode="Static"></span></strong>
+            <span id="valueMessageSpan" runat="server" clientidmode="Static"></span>
+            <span id="valueTryMessageSpan" runat="server" clientidmode="Static"></span>
+        </p>
     </div>
 
     <div id="dnnFormItemSendButton" class="dnnFormItem">
-        <div class="dnnLabel">
-        </div>
+        <div class="dnnLabel"></div>
         <asp:LinkButton ID="btnSendEmailDisabled" runat="server" Text="Send Code" CssClass="" Enabled="false" ValidationGroup="Upendo" ClientIDMode="Static" />
         <asp:LinkButton ID="btnSendEmail" runat="server" Text="Send Code" CssClass="" OnClick="btnSendEmail_Click" ValidationGroup="Upendo" ClientIDMode="Static" />
     </div>
 
     <div class="dnnFormItem">
         <div class="dnnLabel">
-            <asp:Label ID="plPassword" AssociatedControlID="txtPassword" runat="server" resourcekey="Passwords" CssClass="dnnFormLabel" ViewStateMode="Disabled"><span id="valueVerificationCodeMessageSpan" runat="server" ></span></asp:Label>
+            <asp:Label ID="plPassword" AssociatedControlID="txtPassword" runat="server" resourcekey="Passwords" CssClass="dnnFormLabel" ViewStateMode="Disabled"><span id="valueVerificationCodeMessageSpan" runat="server"></span></asp:Label>
         </div>
-        <asp:TextBox ID="txtPassword" runat="server" placeholder="Code Verification" ClientIDMode="Static"/>
+        <asp:TextBox ID="txtPassword" runat="server" placeholder="Code Verification" ClientIDMode="Static" />
     </div>
 
     <div class="dnnFormItem" id="divCaptcha1" runat="server" visible="false">
         <asp:Label ID="plCaptcha" AssociatedControlID="ctlCaptcha" runat="server" resourcekey="Captcha" CssClass="dnnFormLabel" />
     </div>
     <div class="dnnFormItem dnnCaptcha" id="divCaptcha2" runat="server" visible="false">
-        <dnn:captchacontrol id="ctlCaptcha" captchawidth="130" captchaheight="40" runat="server" errorstyle-cssclass="dnnFormMessage dnnFormError dnnCaptcha" viewstatemode="Disabled" ValidationGroup="Upendo" />
+        <dnn:captchacontrol id="ctlCaptcha" captchawidth="130" captchaheight="40" runat="server" errorstyle-cssclass="dnnFormMessage dnnFormError dnnCaptcha" viewstatemode="Disabled" validationgroup="Upendo" />
     </div>
     <div class="dnnFormItem hidden">
         <asp:Label ID="lblLoginRememberMe" runat="server" CssClass="dnnFormLabel" />
@@ -126,7 +128,7 @@
     <script type="text/javascript">
         // Get the elements by their IDs
         var valueMessageSpan = document.getElementById('valueMessageSpan');
-        var dnnConatinerPanel = document.getElementById('dnn_ctr_Login_pnlLoginContainer'); 
+        var dnnConatinerPanel = document.getElementById('dnn_ctr_Login_pnlLoginContainer');
         var valueTimeSpan = document.getElementById('valueTimeSpan');
         var sendVerificationCodeButton = document.getElementById('btnSendEmail');
         var sendVerificationCodeButtonDisabled = document.getElementById('btnSendEmailDisabled');

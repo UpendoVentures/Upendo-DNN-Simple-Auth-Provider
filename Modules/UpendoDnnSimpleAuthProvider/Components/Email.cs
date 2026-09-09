@@ -53,7 +53,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
             this._fromEmail = DnnGlobal.Instance.GetPortalEmail();
             this._toEmail = userEmail;
 
-            string valueSettings = PortalController.GetPortalSetting(_portalController, "UpendoSimpleDnnAuth.ConfirmEmail", DnnGlobal.Instance.GetPortalId(), string.Empty);
+            string valueSettings = PortalController.GetPortalSetting("UpendoSimpleDnnAuth.ConfirmEmail", DnnGlobal.Instance.GetPortalId(), string.Empty);
 
             string serverPath = HostingEnvironment.MapPath(valueSettings);
             var templateContent = File.ReadAllText(serverPath);

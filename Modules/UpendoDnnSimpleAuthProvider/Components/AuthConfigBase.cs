@@ -55,7 +55,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider.Components
             //}
             //else
             //{
-                this.Enabled = PortalController.GetPortalSettingAsBoolean(_portalController, this.Service + "_Enabled", portalId, false);
+                this.Enabled = PortalController.GetPortalSettingAsBoolean(this.Service + "_Enabled", portalId, false);
             //}
         }
 

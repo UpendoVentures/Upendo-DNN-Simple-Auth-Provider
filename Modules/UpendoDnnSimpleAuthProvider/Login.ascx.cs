@@ -17,7 +17,6 @@ OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-using DotNetNuke.Abstractions.ClientResources;
 using DotNetNuke.Web.Client;
 
 namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
@@ -65,7 +64,6 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         private readonly INavigationManager _navigationManager;
         protected int CounterValue = 0;
         private readonly IEventLogger _eventLogger;
-        private readonly IClientResourceController _clientResourceController;
         private readonly IPortalController _portalController;
         private readonly IApplicationStatusInfo _appStatus;
         private readonly IPortalGroupController _portalGroupController;
@@ -74,7 +72,6 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         {
             this._navigationManager = this.DependencyProvider.GetRequiredService<INavigationManager>();
             _eventLogger = DependencyProvider.GetRequiredService<IEventLogger>();
-            _clientResourceController = DependencyProvider.GetRequiredService<IClientResourceController>();
             _portalController = DependencyProvider.GetRequiredService<IPortalController>();
             _appStatus = DependencyProvider.GetRequiredService<IApplicationStatusInfo>();
             _portalGroupController = DependencyProvider.GetRequiredService<IPortalGroupController>();
@@ -107,7 +104,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         {
             base.OnInit(e);
 
-            _clientResourceController.RegisterStylesheet(ControlPath + "module.css", DotNetNuke.Abstractions.ClientResources.FileOrder.Css.ModuleCss);
+            ClientResourceManager.RegisterStyleSheet(this.Page, ControlPath + "module.css", FileOrder.Css.ModuleCss);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -115,9 +112,6 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
             base.OnLoad(e);          
             if (!Page.IsPostBack)
             {
-                moodleRestUrl.Value = Request["resturl"];
-                moodleWantsUrl.Value = Request["wantsurl"];
-
                 // Check and create email template if it doesn't exist
                 EnsureEmailTemplateExists();
             }
@@ -282,7 +276,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                 useEmailAsUserName = !registrationFields.Contains("Username");
             }
 
-            this.plUsername.Text = this.LocalizeText(useEmailAsUserName ? "Email" : "Username");
+            this.plUsername.Text = this.GetLocalizedString(useEmailAsUserName ? "Email" : "Username");
             this.divCaptcha1.Visible = this.UseCaptcha;
             this.divCaptcha2.Visible = this.UseCaptcha;
         }
@@ -343,12 +337,12 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                 // DNN-6093
                 // check if we use email address here rather than username
                 UserInfo userByEmail = null;
-                var emailUsedAsUsername = PortalController.GetPortalSettingAsBoolean(_portalController, "Registration_UseEmailAsUserName", this.PortalId, false);
+                var emailUsedAsUsername = PortalController.GetPortalSettingAsBoolean("Registration_UseEmailAsUserName", this.PortalId, false);
 
                 if (emailUsedAsUsername)
                 {
                     // one additonal call to db to see if an account with that email actually exists
-                    userByEmail = UserController.GetUserByEmail(PortalController.GetEffectivePortalId(_portalController, _appStatus, _portalGroupController, this.PortalId), userName);
+                    userByEmail = UserController.GetUserByEmail(PortalController.GetEffectivePortalId(this.PortalId), userName);
 
                     if (userByEmail != null)
                     {
@@ -470,12 +464,12 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
 
             // check if we use email address here rather than username
             UserInfo userByEmail = null;
-            var emailUsedAsUsername = PortalController.GetPortalSettingAsBoolean(_portalController, "Registration_UseEmailAsUserName", this.PortalId, false);
+            var emailUsedAsUsername = PortalController.GetPortalSettingAsBoolean("Registration_UseEmailAsUserName", this.PortalId, false);
 
             if (emailUsedAsUsername)
             {
                 // one additonal call to db to see if an account with that email actually exists
-                userByEmail = UserController.GetUserByEmail(PortalController.GetEffectivePortalId(_portalController, _appStatus, _portalGroupController, this.PortalId), userName);
+                userByEmail = UserController.GetUserByEmail(PortalController.GetEffectivePortalId(this.PortalId), userName);
 
                 if (userByEmail != null)
                 {
@@ -664,7 +658,7 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
             try
             {
                 var portalSettings = PortalSettings.Current;
-                string templatePath = PortalController.GetPortalSetting(_portalController, LoginConst.UPENDO_SIMPLE_DNN_AUTH_CONFIRM_EMAIL, portalSettings.PortalId, string.Empty);
+                string templatePath = PortalController.GetPortalSetting(LoginConst.UPENDO_SIMPLE_DNN_AUTH_CONFIRM_EMAIL, portalSettings.PortalId, string.Empty);
 
                 if (string.IsNullOrEmpty(templatePath))
                 {
@@ -678,5 +672,33 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
                 Exceptions.LogException(ex);
             }
         }
+
+        #region Localization
+
+        private string GetLocalizedString(string LocalizationKey)
+        {
+            if (!string.IsNullOrEmpty(LocalizationKey))
+            {
+                return Localization.GetString(LocalizationKey, this.LocalResourceFile);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        private string GetLocalizedString(string LocalizationKey, string LocalResourceFilePath)
+        {
+            if (!string.IsNullOrEmpty(LocalizationKey))
+            {
+                return Localization.GetString(LocalizationKey, LocalResourceFilePath);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        #endregion
     }
 }

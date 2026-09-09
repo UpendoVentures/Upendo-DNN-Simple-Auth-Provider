@@ -175,9 +175,12 @@
     <value>two attempts remaining</value>
   </data>
   <data name="NotifyMessage.Text" xml:space="preserve">
-    <value>Didn't see the email? You can try to resend the code in</value>
+    <value>Please check your email inbox for your unique verification code. (Don't forget to check your junk/spam folder.) You can try to resend the code in</value>
   </data>
   <data name="VerificationCodeMessage.Text" xml:space="preserve">
     <value>Verification Code</value>
+  </data>
+  <data name="UsernameRequired.Text" xml:space="preserve">
+    <value>Your login username/email is required.</value>
   </data>
 </root>

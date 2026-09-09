@@ -92,7 +92,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       <InstallInclude Include="**\*.aspx" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.js" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.js.map" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
-      <InstallInclude Include="**\*.txt"  Exclude="**\obj\**;**\_ReSharper*\**;packages\**;node_modules\**;clientApp\**;client-app\**;readme.txt" />
+      <InstallInclude Include="**\*.txt"  Exclude="**\obj\**;**\_ReSharper*\**;packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**;readme.txt" />
       <InstallInclude Include="**\images\**\*.*" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.eot" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.svg" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
@@ -101,7 +101,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       <InstallInclude Include="**\*.woff2" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.swf" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.ico" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
-      <InstallInclude Include="**\*.json" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;obj\**;.angular\**;.vs\**" />
+      <InstallInclude Include="**\*.json" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**;obj\**;.angular\**" />
       <InstallInclude Include="**\*.scss" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.cshtml" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />
       <InstallInclude Include="**\*.png" Exclude="packages\**;node_modules\**;clientApp\**;client-app\**;.vs\**" />

@@ -42,6 +42,15 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         protected global::System.Web.UI.WebControls.TextBox txtUsername;
 
         /// <summary>
+        /// rfvTxtUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTxtUsername;
+
+        /// <summary>
         /// valueNotifyMessageSpan control.
         /// </summary>
         /// <remarks>
@@ -238,23 +247,5 @@ namespace UpendoVentures.Auth.UpendoDnnSimpleAuthProvider
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink passwordLink;
-
-        /// <summary>
-        /// moodleRestUrl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField moodleRestUrl;
-
-        /// <summary>
-        /// moodleWantsUrl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField moodleWantsUrl;
     }
 }

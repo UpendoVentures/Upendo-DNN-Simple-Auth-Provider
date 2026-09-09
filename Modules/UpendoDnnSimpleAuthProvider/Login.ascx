@@ -5,41 +5,51 @@
 
 <div class="pwLogin dnnForm dnnLoginService dnnClear">
 
-    <div id="LoginHeader" class="dnnFormMessage dnnFormWarning text-center" runat="server">
-  
-    </div>
+    <div id="LoginHeader" class="dnnFormMessage dnnFormWarning text-center" runat="server"></div>
 
     <div class="dnnFormItem">
         <div class="dnnLabel">
             <asp:Label ID="plUsername" AssociatedControlID="txtUsername" runat="server" CssClass="dnnFormLabel" />
         </div>
-        <asp:TextBox ID="txtUsername" runat="server" placeholder="Username" ValidationGroup="Upendo" ClientIDMode="Static"/>
+        <asp:TextBox ID="txtUsername" runat="server" placeholder="Username" ValidationGroup="Upendo" ClientIDMode="Static" />
+        <span></span>
+        <asp:RequiredFieldValidator
+            ID="rfvTxtUsername"
+            runat="server"
+            ControlToValidate="txtUsername"
+            ValidationGroup="Upendo"
+            Display="Dynamic"
+            CssClass="text-danger" />
     </div>
 
 
-    <div id="msgCounter" class="dnnFormItem hidden" style="padding-left: 20%;" ClientIDMode="Static">
-        <p><span id="valueNotifyMessageSpan" runat="server" ClientIDMode="Static"></span> <strong><span id="valueTimeSpan" runat="server" ClientIDMode="Static"></span></strong><span id="valueMessageSpan" runat="server" ClientIDMode="Static"></span><span id="valueTryMessageSpan" runat="server" ClientIDMode="Static"></span></p>
+        <div id="msgCounter" class="dnnFormItem hidden" clientidmode="Static" aria-live="polite">
+        <p>
+            <span id="valueNotifyMessageSpan" runat="server" clientidmode="Static"></span>
+            <strong><span id="valueTimeSpan" runat="server" clientidmode="Static"></span></strong>
+            <span id="valueMessageSpan" runat="server" clientidmode="Static"></span>
+            <span id="valueTryMessageSpan" runat="server" clientidmode="Static"></span>
+        </p>
     </div>
 
     <div id="dnnFormItemSendButton" class="dnnFormItem">
-        <div class="dnnLabel">
-        </div>
+        <div class="dnnLabel"></div>
         <asp:LinkButton ID="btnSendEmailDisabled" runat="server" Text="Send Code" CssClass="" Enabled="false" ValidationGroup="Upendo" ClientIDMode="Static" />
         <asp:LinkButton ID="btnSendEmail" runat="server" Text="Send Code" CssClass="" OnClick="btnSendEmail_Click" ValidationGroup="Upendo" ClientIDMode="Static" />
     </div>
 
     <div class="dnnFormItem">
         <div class="dnnLabel">
-            <asp:Label ID="plPassword" AssociatedControlID="txtPassword" runat="server" resourcekey="Passwords" CssClass="dnnFormLabel" ViewStateMode="Disabled"><span id="valueVerificationCodeMessageSpan" runat="server" ></span></asp:Label>
+            <asp:Label ID="plPassword" AssociatedControlID="txtPassword" runat="server" resourcekey="Passwords" CssClass="dnnFormLabel" ViewStateMode="Disabled"><span id="valueVerificationCodeMessageSpan" runat="server"></span></asp:Label>
         </div>
-        <asp:TextBox ID="txtPassword" runat="server" placeholder="Code Verification" ClientIDMode="Static"/>
+        <asp:TextBox ID="txtPassword" runat="server" placeholder="Code Verification" ClientIDMode="Static" />
     </div>
 
     <div class="dnnFormItem" id="divCaptcha1" runat="server" visible="false">
         <asp:Label ID="plCaptcha" AssociatedControlID="ctlCaptcha" runat="server" resourcekey="Captcha" CssClass="dnnFormLabel" />
     </div>
     <div class="dnnFormItem dnnCaptcha" id="divCaptcha2" runat="server" visible="false">
-        <dnn:captchacontrol id="ctlCaptcha" captchawidth="130" captchaheight="40" runat="server" errorstyle-cssclass="dnnFormMessage dnnFormError dnnCaptcha" viewstatemode="Disabled" ValidationGroup="Upendo" />
+        <dnn:captchacontrol id="ctlCaptcha" captchawidth="130" captchaheight="40" runat="server" errorstyle-cssclass="dnnFormMessage dnnFormError dnnCaptcha" viewstatemode="Disabled" validationgroup="Upendo" />
     </div>
     <div class="dnnFormItem hidden">
         <asp:Label ID="lblLoginRememberMe" runat="server" CssClass="dnnFormLabel" />
@@ -62,8 +72,6 @@
             </ul>
         </div>
     </div>
-    <asp:HiddenField ID="moodleRestUrl" runat="server" />
-    <asp:HiddenField ID="moodleWantsUrl" runat="server" />
 </div>
 
 <dnn:dnnscriptblock runat="server">
@@ -124,109 +132,75 @@
         }(jQuery, window.Sys));
     </script>
     <script type="text/javascript">
-        // Get the elements by their IDs
-        var valueMessageSpan = document.getElementById('valueMessageSpan');
-        var dnnConatinerPanel = document.getElementById('dnn_ctr_Login_pnlLoginContainer'); 
-        var valueTimeSpan = document.getElementById('valueTimeSpan');
-        var sendVerificationCodeButton = document.getElementById('btnSendEmail');
-        var sendVerificationCodeButtonDisabled = document.getElementById('btnSendEmailDisabled');
-        var msgCounter = document.getElementById('msgCounter');
 
-        if (dnnConatinerPanel !== null) {
-            dnnConatinerPanel.classList.remove('LoginPanel');
-            dnnConatinerPanel.classList.add('LoginContainer');
-        }
+        (function () {
+            // Robust countdown logic: prefer machine-readable server value, then fallback to parsing displayed text.
+            var valueMessageEl = document.getElementById('valueMessageSpan');
+            var valueTimeEl = document.getElementById('valueTimeSpan');
+            var msgCounter = document.getElementById('msgCounter');
+            var sendBtn = document.getElementById('btnSendEmail');
+            var sendBtnDisabled = document.getElementById('btnSendEmailDisabled');
+            if (!valueTimeEl) return;
 
-        // Check if the verification code type is "seconds."
-        if (valueMessageSpan.innerText === " seconds.") {
-            // Parse the initial value of the countdown timer to an integer
-            var valueTime = parseInt(valueTimeSpan.innerText);
-
-            // Function to update the countdown timer every second
-            function updateCounter() {
-                // If the timer is greater than 0
-                if (valueTime > 0) {
-                    // Show the countdown timer and associated elements, hide the sendVerificationCodeButton, and show the disabled button.
-                    valueTimeSpan.classList.remove('hidden');
-                    msgCounter.classList.remove('hidden');
-                    sendVerificationCodeButton.classList.add('hidden');
-                    sendVerificationCodeButtonDisabled.classList.remove('hidden');
+            function parseDisplayedTime(text) {
+                if (!text) return NaN;
+                text = text.trim();
+                if (/^\d+$/.test(text)) return parseInt(text, 10); // seconds
+                if (text.indexOf(':') !== -1) {
+                    var parts = text.split(':').map(function (p) { return parseInt(p, 10); });
+                    if (parts.length === 3 && parts.every(function (n) { return Number.isFinite(n); })) {
+                        return parts[0] * 3600 + parts[1] * 60 + parts[2];
+                    }
                 }
-
-                // Update the display of the countdown timer
-                valueTimeSpan.innerText = valueTime;
-
-                // If the timer reaches 0
-                if (valueTime === 0) {
-                    // Hide the countdown timer and associated elements, show the sendVerificationCodeButton, and hide the disabled button.
-                    valueTimeSpan.style.display = 'none';
-                    msgCounter.classList.add('hidden');
-                    sendVerificationCodeButton.classList.remove('hidden');
-                    sendVerificationCodeButtonDisabled.classList.add('hidden');
-                }
-                else {
-                    // Decrement the timer value by 1 second and call the updateCounter function again after 1 second.
-                    valueTime--;
-                    setTimeout(updateCounter, 1000);
-                }
+                return NaN;
             }
 
-            // Start the countdown timer update process
-            updateCounter();
-        }
-        else {
-            // Function to decrement the countdown timer
-            function decrementCounter() {
-                // Get the element containing the current time in format HH:mm:ss
-                var timerDiv = document.getElementById('valueTimeSpan');
+            // 1) Prefer server-provided machine-readable value
+            var serverSeconds = NaN;
+            try {
+                if (valueTimeEl.dataset && valueTimeEl.dataset.remainingSeconds) {
+                    serverSeconds = parseInt(valueTimeEl.dataset.remainingSeconds, 10);
+                }
+            } catch (e) { serverSeconds = NaN; }
 
-                // Get the current time as a string and split it into hours, minutes, and seconds
-                var currentTime = timerDiv.innerText;
-                var timeParts = currentTime.split(':');
-                var hours = parseInt(timeParts[0]);
-                var minutes = parseInt(timeParts[1]);
-                var seconds = parseInt(timeParts[2]);
+            // 2) Fallback to parsing visible text
+            var totalSeconds = Number.isFinite(serverSeconds) ? serverSeconds : parseDisplayedTime(valueTimeEl.innerText);
+            if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) return;
 
-                // Convert hours, minutes, and seconds to total seconds
-                var totalSeconds = hours * 3600 + minutes * 60 + seconds;
+            function pad(n) { return String(n).padStart(2, '0'); }
+            function formatHMS(sec) {
+                var h = Math.floor(sec / 3600);
+                var m = Math.floor((sec % 3600) / 60);
+                var s = sec % 60;
+                return pad(h) + ':' + pad(m) + ':' + pad(s);
+            }
 
-                // Decrement one second from the total seconds
+            // Show UI state
+            msgCounter && msgCounter.classList.remove('hidden');
+            sendBtn && sendBtn.classList.add('hidden');
+            sendBtnDisabled && sendBtnDisabled.classList.remove('hidden');
+
+            // Countdown loop (self-contained)
+            (function tick() {
+                if (totalSeconds <= 0) {
+                    valueTimeEl.style.display = 'none';
+                    msgCounter && msgCounter.classList.add('hidden');
+                    sendBtn && sendBtn.classList.remove('hidden');
+                    sendBtnDisabled && sendBtnDisabled.classList.add('hidden');
+                    return;
+                }
+                // Display HH:mm:ss for >= 3600s or if original text used colon
+                if (totalSeconds >= 3600 || (valueTimeEl.innerText && valueTimeEl.innerText.indexOf(':') !== -1)) {
+                    valueTimeEl.textContent = formatHMS(totalSeconds);
+                } else {
+                    valueTimeEl.textContent = String(totalSeconds);
+                }
+                // keep the machine-readable attribute in sync
+                try { valueTimeEl.dataset.remainingSeconds = String(totalSeconds); } catch (e) { /* ignore */ }
                 totalSeconds--;
-
-                // Convert the updated total seconds back to time format (HH:mm:ss)
-                hours = Math.floor(totalSeconds / 3600);
-                minutes = Math.floor((totalSeconds % 3600) / 60);
-                seconds = totalSeconds % 60;
-
-                // Update the content of the countdown timer element with the new time value
-                timerDiv.textContent = formatTime(hours) + ':' + formatTime(minutes) + ':' + formatTime(seconds);
-
-                // If the counter is greater, show the countdown timer, hide the disabled sendVerificationCodeButton, and show the enabled button.
-                if (totalSeconds > 0) {
-                    valueTimeSpan.classList.remove('hidden');
-                    msgCounter.classList.remove('hidden');
-                    sendVerificationCodeButton.classList.add('hidden');
-                    sendVerificationCodeButtonDisabled.classList.remove('hidden');
-                }
-
-                // If the counter reaches 0, hide the countdown timer, show the sendVerificationCodeButton, and hide the disabled button.
-                if (totalSeconds === 0) {
-                    valueTimeSpan.style.display = 'none';
-                    msgCounter.classList.add('hidden');
-                    sendVerificationCodeButton.classList.remove('hidden');
-                    sendVerificationCodeButtonDisabled.classList.add('hidden');
-                    clearInterval(interval);
-                }
-            }
-
-            // Function to format the time to two digits (e.g., 01, 02, ..., 09)
-            function formatTime(time) {
-                return time < 10 ? '0' + time : time;
-            }
-
-            // Call the function decrementCounter every second (1000ms) using setInterval
-            var interval = setInterval(decrementCounter, 1000);
-        }
+                setTimeout(tick, 1000);
+            })();
+        })();
     </script>
     <script type="text/javascript">
         // Function to enable or disable the button depending on the length of the text in the password field
